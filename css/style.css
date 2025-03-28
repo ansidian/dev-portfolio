@@ -1,247 +1,124 @@
-/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
+:root {
+  /* Light Theme (Default) */
+  --banner-bg: #f8f9fa;
+  --particle-color: #d1d5db; /* Light gray particles */
+  --particle-glow-color: #9ca3af; /* Slightly darker/more visible */
+  --text-color-banner: #1f2937;
+  --page-bg: #ffffff;
+  --text-color-page: #1f2937;
 
-/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
-html {
-  color: #222;
-  font-size: 1em;
-  line-height: 1.4;
+  /* Config */
+  --particle-size: 3px;
+  --particle-base-opacity: 0.5;
+  --particle-glow-opacity: 0.8;
+  --transition-speed: 0.3s; /* For non-transform properties like opacity */
 }
 
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * Customize the background color to match your design.
- */
-
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
+body.dark-mode {
+  /* Dark Theme */
+  --banner-bg: #111827;
+  --particle-color: #4b5563; /* Muted dark particles */
+  --particle-glow-color: #9ca3af; /* Lighter gray glow */
+  --text-color-banner: #f3f4f6;
+  --page-bg: #111827; /* Match banner or make slightly different */
+  --text-color-page: #f3f4f6;
 }
 
-::selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle;
-}
-
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-  border: 0;
+body {
   margin: 0;
-  padding: 0;
+  font-family: sans-serif;
+  background-color: var(--page-bg);
+  color: var(--text-color-page);
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-  resize: vertical;
+#interactive-banner {
+  position: relative;
+  width: 100%;
+  min-height: 350px; /* Adjust as needed */
+  background-color: var(--banner-bg);
+  overflow: hidden; /* Keep particles contained */
+  transition: background-color var(--transition-speed) ease;
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers
- */
-
-.hidden,
-[hidden] {
-  display: none !important;
-}
-
-/*
- * Hide only visually, but have it available for screen readers:
- * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- *
- * 1. For long content, line feeds are not interpreted as spaces and small width
- *    causes content to wrap 1 word per line:
- *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
- */
-
-.visually-hidden {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+#particle-container {
   position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  /* 1 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/*
- * Extends the .visually-hidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
-
-.visually-hidden.focusable:active,
-.visually-hidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  white-space: inherit;
-  width: auto;
+#line-svg {
+  position: absolute; /* Position within the container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* SVG should not capture mouse events */
+  z-index: 1; /* Draw lines behind particles */
 }
 
-/*
- * Hide visually and from screen readers, but maintain layout
- */
 
-.invisible {
-  visibility: hidden;
+.banner-content {
+  position: relative; /* Relative to the banner */
+  z-index: 2; /* Above particles */
+  color: var(--text-color-banner);
+  text-align: center;
+  padding: 20px;
+  transition: color var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 350px; /* Match banner */
+  pointer-events: none; /* Allow mouse events through */
 }
 
-/*
- * Clearfix: contain floats
- *
- * The use of `table` rather than `block` is only necessary if using
- * `::before` to contain the top-margins of child elements.
- */
-
-.clearfix::before,
-.clearfix::after {
-  content: "";
-  display: table;
+.banner-content h1, .banner-content p {
+  pointer-events: auto; /* Enable events for text */
+  margin-bottom: 0.5em;
 }
 
-.clearfix::after {
-  clear: both;
+.particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  background-color: var(--particle-color);
+  border-radius: 50%;
+  opacity: var(--particle-base-opacity);
+  transition: opacity var(--transition-speed) ease-out, background-color var(--transition-speed) ease-out; /* Transition visual changes */
+  will-change: transform, opacity; /* Optimize */
+  pointer-events: none;
+  z-index: 2; /* Ensure particles are drawn ABOVE the lines */
+  /* Initial top/left set by JS */
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
+#line-svg line {
+  stroke: var(--particle-glow-color); /* Use a theme color */
+  stroke-width: 1px; /* Adjust thickness */
+  stroke-linecap: round; /* Nicer line ends */
+  /* Opacity will be set dynamically via JS based on distance */
 }
 
-@media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
-  /* Style adjustments for high resolution devices */
+/* Theme toggle button styles (same as before) */
+#theme-toggle {
+  padding: 8px 15px;
+  border: 1px solid var(--text-color-page);
+  background-color: var(--page-bg);
+  color: var(--text-color-page);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all var(--transition-speed) ease;
+  position: fixed; /* Keep it accessible */
+  top: 10px;
+  right: 10px;
+  z-index: 100;
 }
 
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   https://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-  *,
-  *::before,
-  *::after {
-    background: #fff !important;
-    color: #000 !important;
-    /* Black prints faster */
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-
-  a[href]::after {
-    content: " (" attr(href) ")";
-  }
-
-  abbr[title]::after {
-    content: " (" attr(title) ")";
-  }
-
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
-  a[href^="#"]::after,
-  a[href^="javascript:"]::after {
-    content: "";
-  }
-
-  pre {
-    white-space: pre-wrap !important;
-  }
-
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
+#theme-toggle:hover {
+  background-color: var(--text-color-page);
+  color: var(--page-bg);
 }
-
