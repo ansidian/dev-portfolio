@@ -379,25 +379,13 @@ h2 { /* Basic styling for section headers */
 }
 
 /* =================================
-   PLACEHOLDER CONTENT STYLES (e.g., About Me)
+   ABOUT ME SECTION
    ================================= */
-/* Let's style the placeholder properly now */
-.content-placeholder {
-  background-color: var(--page-bg);
+#about-me-section {
+  background-color: var(--page-bg); /* Match page background */
   color: var(--text-color-page);
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-  padding: 60px 0; /* Consistent vertical padding */
-}
-
-.content-placeholder h2 {
-  /* Already styled by global h2 */
-}
-
-.content-placeholder p {
-  max-width: 700px; /* Limit paragraph width for readability */
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center; /* Center the placeholder text */
+  transition: background-color var(--transition-speed) ease;
+  padding: 60px 0;
 }
 
 /* =================================
