@@ -492,7 +492,8 @@ body.dark-mode #main-nav a:hover {
   right: 15px; /* Increased spacing */
   z-index: 100;
   padding: 8px 15px;
-  border: 1px solid var(--text-color-page);
+  border: none; /* Remove the border */
+  box-shadow: 0 0 0 2px var(--text-color-page);
   background-color: var(--page-bg);
   color: var(--text-color-page);
   cursor: pointer;

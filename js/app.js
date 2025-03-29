@@ -12,16 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // --- Configuration & Dynamic Calculation Variables ---
   const particles = [];
-  const numParticles = 120; // Keep this relatively low for O(n^2) line drawing
+  const numParticles = 90; // Keep this relatively low for O(n^2) line drawing
 
   // --- Physics & Interaction ---
-  const interactionRadius = 110; // Increased slightly for more visible effect
+  const interactionRadius = 120; // Increased slightly for more visible effect
   const repulsionStrength = 0.5;
-  const baseSpeed = 0.2;
-  const damping = 0.97; // Friction
+  const baseSpeed = 0.3;
+  const damping = 0.995; // Friction
   const repulsionStrengthMouse = 0.3;   // Mouse repulsion strength
-  const particleRepulsionStrength = 0.04; // <<< NEW: Particle-particle repulsion strength (tune this!)
-  const minSeparationDistance = 8;    // <<< NEW: Min distance for particle repulsion (tune this!)
+  const particleRepulsionStrength = 0.04; // Particle-particle repulsion strength (tune this!)
+  const minSeparationDistance = 8;    // Min distance for particle repulsion (tune this!)
 
   // Line Drawing Variables
   const maxLineDistance = 150; // Max distance to draw a line
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vx = (Math.random() - 0.5) * baseSpeed * 2;
-      this.vy = (Math.random() - 0.5) * baseSpeed * 2;
+      this.vx = (Math.random() - 0.5) * baseSpeed;
+      this.vy = (Math.random() - 0.5) * baseSpeed;
       this.element = document.createElement('div');
       this.element.classList.add('particle');
       this.size = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--particle-size')) || 3;
