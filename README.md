@@ -20,7 +20,7 @@ Web Developer.
 
 ## 📸 Screenshot
 
-![Screenshot of Portfolio Site](https://media.cleanshot.cloud/media/81129/IkFjg8iFPghbo7gDfmiHLNnzGwvrWI76cJ5wKB26.gif?Expires=1743300384&Signature=hXpuD9W602vrvkWavw2sTUT9qsNoPGzXa457b0ogUI2Qw0A~ka4XPz7f7gE~BmgP35ryYVlK58Qs0h93ppyEo-5BUCuwyFTtPRQyxrflBrfWjNBSy2voanT-Fbj5RIlNxITYEvKJRcS3nCoi-QyUm7NOljwUYHnwqtsOCVUAJypUu6CcZM4tr~rJPUMWR4DQ~cmXnvrEhZNeaDB3UYpu05ktcHebWvFzVi86GE7JXl91~P3iDUSnkmhdGuelcKgHINhqIaAJMeXdG9aiApkD4ccKs8zb-AfLBqUvJ9s8tHuQ9slCnOgogeWzJBlb~3u9-mc1TvYTobKHmxRjHelblQ__&Key-Pair-Id=K269JMAT9ZF4GZ)
+<img src="https://cvws.icloud-content.com/B/AYEduZvVRFf72COensQi-j4huCU9ASHO1WMSZtPZvVLACx6h8WCAryEl/portfolio-site.gif?o=AmE-YH0ko91uJZZP9JTqn9uHNQb7XT8lZCe9Qltuygx9&v=1&x=3&a=CAogOVCt7gKZrXEwMp9ho-Ptk4PJLYQg8SIqDh705sgOGtISbRCSrLOc3jIYkomPnt4yIgEAUgQhuCU9WgSAryElaiY1hiDRrWhVCF8xsEjsnaIsA2UE4qm_3azxGCGd-47JFVkd8UyKAnImbDAQEXPrHJTO_MAd4-uXpOoYppq69GbZjJgF7WvX_XGRC51TcHU&e=1743283012&fl=&r=ad9ea64b-f73a-4459-b2fd-fcb3114cd44d-1&k=tULbpaCffcMa36IJHCNS8w&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=71&s=DdbIQU9p7o31N2-X4PsZID2itCU&cd=i" alt="Portfolio Site Screenshot">
 
 ## 🛠️ Technologies Used
 
