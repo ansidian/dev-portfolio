@@ -4,14 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Andy Su - Portfolio</title> <!-- Added a title -->
+  <title>Andy Su - Portfolio</title> <!-- title -->
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="Andy Su's personal portfolio website showcasing projects and skills.">
 
   <meta property="og:title" content="Andy Su - Portfolio">
-  <meta property="og:type" content="website"> <!-- More specific type -->
-  <meta property="og:url" content=""> <!-- Add your live URL here -->
-  <meta property="og:image" content=""> <!-- Add a preview image URL -->
+  <meta property="og:type" content="website"> <!-- specific type -->
+  <meta property="og:url" content=""> <!-- live URL -->
+  <meta property="og:image" content=""> <!-- preview image URL -->
   <meta property="og:image:alt" content="Preview of Andy Su's Portfolio Website">
   <meta property="og:description" content="Andy Su's personal portfolio website showcasing projects and skills.">
 
@@ -20,17 +20,15 @@
   <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#ffffff"> <!-- Set initial theme color -->
-  <!-- Update theme-color meta tag dynamically if desired, or have separate ones -->
+  <meta name="theme-color" content="#ffffff">
 
 </head>
 
 <body>
 
-<!-- Theme Toggle Button -->
-<!-- Theme Toggle Button -->
-<button id="theme-toggle" title="Toggle light/dark theme"> <!-- Added title for tooltip -->
-  <img id="theme-icon" src="" alt="Toggle theme" width="24" height="24"> <!-- Adjust width/height as needed -->
+<!-- theme toggle button -->
+<button id="theme-toggle" title="Toggle light/dark theme">
+  <img id="theme-icon" src="" alt="Toggle theme" width="24" height="24">
 </button>
 
 <!-- ======================= -->
@@ -38,55 +36,55 @@
 <!-- ======================= -->
 <div id="interactive-banner">
 
-  <!-- Container specifically for particles/lines -->
+  <!-- container specifically for particles & lines -->
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Content overlay -->
+  <!-- content overlay -->
   <div class="banner-content">
     <h1>Hi, I'm <span class="name-highlight">Andy</span></h1>
     <p>Computer Science Undergraduate | Full Stack Web Developer</p>
     <div class="social-icons">
-      <a href="https://github.com/ansidian" title="GitHub Profile" target="_blank" rel="noopener noreferrer"> <!-- Added target/rel -->
+      <a href="https://github.com/ansidian" title="GitHub Profile" target="_blank" rel="noopener noreferrer"> <!-- target/rel -->
         <img src="img/github.png" height="30" width="30" alt="Github Logo"/>
       </a>
-      <a href="https://www.linkedin.com/in/andysu96/" title="LinkedIn Profile" target="_blank" rel="noopener noreferrer"> <!-- Added target/rel -->
+      <a href="https://www.linkedin.com/in/andysu96/" title="LinkedIn Profile" target="_blank" rel="noopener noreferrer"> <!-- target/rel -->
         <img src="img/linkedin.png" height="30" width="30" alt="LinkedIn Logo"/>
       </a>
     </div>
-    <!-- Optional: Add a subtle scroll down indicator if desired -->
-    <!-- <div class="scroll-down-indicator">↓</div> -->
   </div>
 </div>
+
 <!-- ======================= -->
-<!-- = END FULLSCREEN BANNER = -->
+<!--  END FULLSCREEN BANNER  -->
 <!-- ======================= -->
 
 
 <!-- ======================= -->
 <!-- ====== NAVIGATION ===== -->
 <!-- ======================= -->
+
 <nav id="main-nav">
-  <div class="section-container nav-container"> <!-- Use section-container for width consistency -->
+  <div class="section-container nav-container">
     <a href="#projects-section">Projects</a>
     <a href="#about-me-section">About Me</a>
-    <!-- Add more links as needed (e.g., Contact) -->
     <!-- <a href="#contact-section">Contact</a> -->
   </div>
 </nav>
+
 <!-- ======================= -->
 <!-- === END NAVIGATION ==== -->
 <!-- ======================= -->
 
-
 <!-- ======================= -->
 <!-- ==== PROJECTS SECTION = -->
 <!-- ======================= -->
+
 <section id="projects-section">
   <div class="section-container">
     <h2>Projects</h2>
 
     <div class="project-cards-container">
-      <!-- Single Project Card  -->
+      <!-- project Card  -->
       <article class="project-card">
         <div class="project-thumbnail">
           <img src="img/dolphins-swim-academy.png" alt="Dolphins Swim Academy Thumbnail">
@@ -109,10 +107,11 @@
           </div>
         </div>
       </article>
-      <!-- End Single Project Card -->
+      <!--  project Card -->
     </div>
   </div>
 </section>
+
 <!-- ======================= -->
 <!-- == END PROJECTS SECTION = -->
 <!-- ======================= -->
@@ -120,16 +119,17 @@
 <!-- ======================= -->
 <!-- ==== ABOUT ME SECTION = -->
 <!-- ======================= -->
+
 <section id="about-me-section">
   <div class="section-container">
     <h2>About Me</h2>
     <p>Future content about skills, experience, etc., will go here.</p>
   </div>
 </section>
+
 <!-- ======================= -->
 <!-- == END ABOUT ME SECTION = -->
 <!-- ======================= -->
-
 
 <script src="js/app.js"></script>
 </body>
