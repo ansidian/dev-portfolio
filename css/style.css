@@ -1,33 +1,31 @@
 /* =================================
    VARIABLES & CONFIGURATION
    ================================= */
-/* Defines colors, sizes, speeds etc., used throughout the stylesheet.
-   Easy place to tweak the overall look and feel. */
-
+/* Defines colors, sizes, speeds etc., used throughout the stylesheet. */
 :root {
-  /* -- Theme Colors (Light Theme - Default) -- */
+  /* -- theme colors -- */
   --banner-bg: #f8f9fa;
-  --particle-color: #D264B6; /* Light gray particles */
-  --particle-glow-color: #D264B6; /* Slightly darker/more visible for lines/glow */
-  --accent-color: #60a5fa; /* Random Chance */
-  --text-color-banner: #1f2937; /* Text specifically on the banner */
+  --particle-color: #D264B6; /* particle color (dot) */
+  --particle-glow-color: #D264B6; /* color for particle-line */
+  --accent-color: #60a5fa; /* color for randomly selected particles */
+  --text-color-banner: #1f2937; /* text specifically on the banner */
   --page-bg: #ffffff;
-  --text-color-page: #1f2937; /* Default text color for the page */
-  --nav-bg: #ffffff; /* Navbar background */
+  --text-color-page: #1f2937; /* default text color for the page */
+  --nav-bg: #ffffff; /* navbar background */
   --nav-text: #374151;
   --nav-hover-text: #1f2937;
-  --nav-border-bottom: #e5e7eb; /* Optional border */
+  --nav-border-bottom: #e5e7eb;
 
 
-  /* -- Project Cards Colors -- */
+  /* -- project card colors -- */
   --card-bg: #ffffff;
-  --card-border: #e5e7eb; /* Light gray border */
+  --card-border: #e5e7eb; /* light gray border */
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --card-text-color: #374151; /* Slightly softer than pure black for card body */
+  --card-text-color: #374151; /* card body */
   --tech-tag-bg: #e5e7eb;
   --tech-tag-text: #4b5563;
-  --button-bg: #60a5fa; /* Example blue */
+  --button-bg: #60a5fa;
   --button-text: #ffffff;
   --button-hover-bg: #2563eb;
   --button-outline-border: #6b7280;
@@ -35,39 +33,36 @@
   --button-outline-hover-bg: #f3f4f6;
   --button-outline-hover-text: #1f2937;
 
-  /* -- Component & Animation Configuration -- */
-  --particle-size: 4px;
+  /* -- component & animation configuration -- */
+  --particle-size: 3px; /* overridden by js parameter*/
   --particle-base-opacity: 0.5;
-  --particle-glow-opacity: 0.8; /* Max opacity for glowing particles/lines near cursor */
-  --transition-speed: 0.3s; /* For non-transform properties like color, opacity */
-  --hover-transition-speed: 0.3s; /* Specific for hover effects */
+  --particle-glow-opacity: 0.8; /* max opacity for glowing particles/lines near cursor */
+  --transition-speed: 0.3s; /* for non-transform properties like color, opacity */
+  --hover-transition-speed: 0.3s; /* specific for hover effects */
   --particle-line-thickness: 1px;
-  --card-border-radius: 8px; /* Added for consistency */
-
+  --card-border-radius: 8px; /* added for consistency */
 }
 
-/* Defines the variable overrides for Dark Mode */
+/* defines the variable overrides for dark mode */
 body.dark-mode {
   --banner-bg: #111827;
-  --particle-color: #4b5563; /* Muted dark particles */
-  --particle-glow-color: #9ca3af; /* Lighter gray glow/lines */
   --text-color-banner: #f3f4f6;
   --page-bg: #111827;
   --text-color-page: #f3f4f6;
-  --nav-bg: #1f2937; /* Darker nav background */
+  --nav-bg: #1f2937;
   --nav-text: #d1d5db;
   --nav-hover-text: #ffffff;
   --nav-border-bottom: #374151;
 
-  /* Project Card Dark Colors */
-  --card-bg: #374151; /* Dark gray card */
+  /* project card (dark-mode) */
+  --card-bg: #374151;
   --card-border: #4b5563;
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
   --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
   --card-text-color: #d1d5db;
   --tech-tag-bg: #4b5563;
   --tech-tag-text: #f3f4f6;
-  --button-bg: #60a5fa; /* Lighter blue for dark mode */
+  --button-bg: #60a5fa; /* lighter blue */
   --button-text: #111827;
   --button-hover-bg: #3b82f6;
   --button-outline-border: #9ca3af;
@@ -83,34 +78,34 @@ body.dark-mode {
 /* Affects the entire page. Includes resets, body defaults, font settings. */
 
 html {
-  scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+  scroll-behavior: smooth; /* enable smooth scrolling for anchor links */
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* More modern font stack */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background-color: var(--page-bg);
   color: var(--text-color-page);
   transition: background-color var(--transition-speed) ease,
   color var(--transition-speed) ease;
-  line-height: 1.6; /* Improve readability */
+  line-height: 1.6;
 }
 
-/* Utility for consistent section padding/width */
+/* utility for consistent section padding/width */
 .section-container {
-  max-width: 1100px; /* Adjust max-width as needed */
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 20px; /* Horizontal padding */
+  padding: 0 20px;
 }
 
-h2 { /* Basic styling for section headers */
+h2 {
   text-align: center;
-  margin-top: 0; /* Reset top margin often added by default */
+  margin-top: 0;
   margin-bottom: 40px;
-  padding-top: 60px; /* Add padding to top of section headers to prevent overlap if nav *were* sticky */
+  padding-top: 60px;
   font-size: 2em;
-  color: var(--text-color-page); /* Ensure it uses page text color */
+  color: var(--text-color-page);
   font-weight: 600;
 }
 
@@ -123,13 +118,12 @@ h2 { /* Basic styling for section headers */
 #interactive-banner {
   position: relative;
   width: 100%;
-  height: 100vh; /* <<< KEY CHANGE: Make banner fill viewport height */
-  /* min-height: 350px; <<< REMOVED: No longer needed */
-  display: flex; /* Use flexbox to easily center content */
-  align-items: center; /* Vertical centering */
-  justify-content: center; /* Horizontal centering */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--banner-bg);
-  overflow: hidden; /* Keep particles contained */
+  overflow: hidden;
   transition: background-color var(--transition-speed) ease;
 }
 
@@ -139,14 +133,14 @@ h2 { /* Basic styling for section headers */
 /* Styles related to the particle container, individual particles,
    and the lines connecting them. */
 
-#particle-canvas { /* <<< NEW CANVAS STYLING */
+#particle-canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Behind banner content, above banner background */
-  pointer-events: none; /* Canvas shouldn't block mouse interaction with content below if needed */
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* =================================
@@ -155,8 +149,8 @@ h2 { /* Basic styling for section headers */
 /* Styles for the text elements displayed over the banner/particle effect. */
 
 .banner-content {
-  position: relative; /* Position relative to #interactive-banner */
-  z-index: 3; /* Ensures content is above particles and lines */
+  position: relative;
+  z-index: 3;
   color: var(--text-color-banner);
   text-align: center;
   padding: 20px;
@@ -165,25 +159,24 @@ h2 { /* Basic styling for section headers */
   justify-content: center;
   align-items: center;
   transition: color var(--transition-speed) ease;
-  max-width: 800px; /* Optional: Constrain width of banner text */
+  max-width: 800px;
 }
 
 .banner-content h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
-  margin-bottom: 0.3em; /* Adjust spacing */
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 0.3em;
 }
 
 .banner-content h1 .name-highlight {
   color: var(--accent-color);
-  /* add transition to match parent h1 and theme changes */
   transition: color var(--transition-speed) ease;
 }
 
 .banner-content p {
-  font-size: clamp(1rem, 2.5vw, 1.25rem); /* Responsive font size */
-  margin-bottom: 1em; /* Adjust spacing */
-  max-width: 600px; /* Limit width of paragraph */
-  pointer-events: auto; /* Allow text selection etc. */
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  margin-bottom: 1em;
+  max-width: 600px;
+  pointer-events: auto;
 }
 
 /* =================================
@@ -192,9 +185,9 @@ h2 { /* Basic styling for section headers */
 .social-icons {
   display: flex;
   align-items: center;
-  gap: 25px; /* Slightly increased gap */
-  margin-top: 15px; /* Space above icons */
-  pointer-events: auto; /* Ensure links are clickable */
+  gap: 25px;
+  margin-top: 15px;
+  pointer-events: auto;
 }
 
 .social-icons a {
@@ -209,7 +202,7 @@ h2 { /* Basic styling for section headers */
 }
 
 .social-icons img:hover {
-  transform: scale(1.15) translateY(-4px); /* Slightly enhanced hover */
+  transform: scale(1.15) translateY(-4px);
 }
 
 /* =================================
@@ -221,14 +214,13 @@ h2 { /* Basic styling for section headers */
   border-bottom: 1px solid var(--nav-border-bottom);
   transition: background-color var(--transition-speed) ease,
   border-color var(--transition-speed) ease;
-  /* Not sticky - appears in normal document flow below banner */
 }
 
-.nav-container { /* Extends .section-container */
+.nav-container {
   display: flex;
-  justify-content: center; /* Center links horizontally */
+  justify-content: center;
   align-items: center;
-  gap: 30px; /* Space between nav links */
+  gap: 30px;
 }
 
 #main-nav a {
@@ -243,13 +235,9 @@ h2 { /* Basic styling for section headers */
 
 #main-nav a:hover {
   color: var(--nav-hover-text);
-  /* Optional: add subtle background on hover */
-  /* background-color: rgba(0, 0, 0, 0.05); */
 }
 
-/* Dark mode adjustments for nav link hover */
 body.dark-mode #main-nav a:hover {
-  /* background-color: rgba(255, 255, 255, 0.1); */
 }
 
 
@@ -257,7 +245,6 @@ body.dark-mode #main-nav a:hover {
    PROJECTS SECTION
    ================================= */
 #projects-section {
-  /* padding: 60px 0; <<< REMOVED: Padding handled by h2 */
   background-color: var(--page-bg);
   transition: background-color var(--transition-speed) ease;
 }
@@ -266,15 +253,15 @@ body.dark-mode #main-nav a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px; /* Space between project cards */
-  padding-bottom: 60px; /* Add padding at the bottom of the container */
+  gap: 40px; /* space between project cards */
+  padding-bottom: 60px; /* padding at the bottom of the container */
 }
 
 .project-card {
   display: flex;
-  flex-direction: column; /* Stack image and text vertically on smaller screens */
-  width: 90%; /* Adjust width for better responsiveness */
-  max-width: 950px; /* Max width constraint */
+  flex-direction: column; /* stack image and text vertically on smaller screens */
+  width: 90%;
+  max-width: 950px;
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--card-border-radius);
@@ -287,11 +274,11 @@ body.dark-mode #main-nav a:hover {
   border-color var(--transition-speed) ease;
 }
 
-/* Apply horizontal layout only on larger screens */
+/* horizontal layout only on larger screens */
 @media (min-width: 768px) {
   .project-card {
-    flex-direction: row; /* Side-by-side layout */
-    width: 85%; /* Restore original width target */
+    flex-direction: row; /* side-by-side layout */
+    width: 85%; /* original width target */
   }
 }
 
@@ -302,21 +289,20 @@ body.dark-mode #main-nav a:hover {
 }
 
 .project-thumbnail {
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
-  /* Adjustments for responsive layout */
-  width: 100%; /* Full width when stacked vertically */
-  height: 250px; /* Fixed height for vertical layout */
+  width: 100%; /* full width when stacked vertically */
+  height: 250px; /* fixed height for vertical layout */
 }
 
 @media (min-width: 768px) {
   .project-thumbnail {
-    flex-basis: 40%; /* Take up 40% width */
+    flex-basis: 40%; /* 40% width */
     max-width: 380px;
     min-width: 250px;
-    height: auto; /* Let height be determined by content/aspect ratio */
-    aspect-ratio: 16 / 10; /* Maintain aspect ratio */
+    height: auto; /* height determined by content/aspect ratio */
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -333,8 +319,8 @@ body.dark-mode #main-nav a:hover {
 }
 
 .project-details {
-  flex-grow: 1; /* Take remaining space */
-  padding: 25px 30px; /* Adjust padding */
+  flex-grow: 1;
+  padding: 25px 30px;
   display: flex;
   flex-direction: column;
   color: var(--card-text-color);
@@ -343,8 +329,8 @@ body.dark-mode #main-nav a:hover {
 
 @media (min-width: 768px) {
   .project-details {
-    flex-basis: 60%; /* Take up 60% width */
-    padding: 30px 40px; /* More padding on larger screens */
+    flex-basis: 60%;
+    padding: 30px 40px;
   }
 }
 
@@ -354,7 +340,7 @@ body.dark-mode #main-nav a:hover {
   margin-bottom: 10px;
   font-size: 1.5em;
   font-weight: 600;
-  color: var(--text-color-page); /* Use primary text color for heading for emphasis */
+  color: var(--text-color-page);
 }
 
 .project-tech {
@@ -388,7 +374,7 @@ body.dark-mode #main-nav a:hover {
   gap: 15px;
 }
 
-/* General Button Styles */
+/* general Button Styles */
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -409,8 +395,8 @@ body.dark-mode #main-nav a:hover {
   transform: translateY(-2px);
 }
 
-/* Primary Button */
-.button { /* This is already the primary style definition */
+/* primary Button */
+.button {
   background-color: var(--button-bg);
   color: var(--button-text);
   border-color: var(--button-bg);
@@ -421,7 +407,7 @@ body.dark-mode #main-nav a:hover {
   border-color: var(--button-hover-bg);
 }
 
-/* Outline Button */
+/* outline Button */
 .button.button-outline {
   background-color: transparent;
   color: var(--button-outline-text);
@@ -438,15 +424,14 @@ body.dark-mode #main-nav a:hover {
    ABOUT ME SECTION
    ================================= */
 #about-me-section {
-  /* padding: 60px 0; <<< REMOVED: Padding handled by h2 */
-  background-color: var(--page-bg); /* Match page background */
+  background-color: var(--page-bg);
   color: var(--text-color-page);
   transition: background-color var(--transition-speed) ease;
-  padding-bottom: 60px; /* Add padding at the bottom of the section */
+  padding-bottom: 60px;
 }
 
 #about-me-section .section-container p {
-  max-width: 800px; /* Constrain text width */
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1em;
@@ -460,28 +445,25 @@ body.dark-mode #main-nav a:hover {
   top: 15px;
   right: 15px;
   z-index: 100;
-  padding: 5px; /* Add a little padding around the image for easier clicking */
-  border: none; /* Remove border */
-  background-color: transparent; /* Remove background */
-  box-shadow: none; /* Remove box-shadow */
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
   cursor: pointer;
-  border-radius: 50%; /* Optional: make the clickable area circular */
-  line-height: 0; /* Prevent extra space */
-  /* Keep transition for potential future effects like opacity */
+  border-radius: 50%;
+  line-height: 0;
   transition: opacity var(--hover-transition-speed) ease, transform var(--hover-transition-speed) ease;
 }
 
 #theme-toggle:hover {
-  /* Remove previous hover effects */
-  /* background-color: var(--text-color-page); */
-  /* color: var(--page-bg); */
+
   transform: scale(1.05);
-  opacity: 0.8; /* Add a subtle opacity change on hover */
+  opacity: 0.8;
 }
 
 #theme-toggle img {
-  display: block; /* Remove potential extra space below image */
-  width: 24px; /* Ensure image size is controlled */
+  display: block;
+  width: 24px;
   height: 24px;
 }
 
@@ -489,17 +471,15 @@ body.dark-mode #main-nav a:hover {
 /* =================================
    DARK MODE THEME - SPECIFIC ELEMENT OVERRIDES
    ================================= */
+
 body.dark-mode .social-icons img {
-  filter: invert(1) brightness(0.9) contrast(1.1); /* Adjust filter for better visibility */
+  filter: invert(1) brightness(0.9) contrast(1.1);
 }
 
 body.dark-mode .social-icons img:hover {
-  filter: invert(1) brightness(1.1) contrast(1); /* Brighten on hover */
+  filter: invert(1) brightness(1.1) contrast(1);
 }
 
 body.dark-mode #theme-toggle img {
-  filter: invert(1) brightness(1.1); /* Apply inversion only in dark mode */
-  /* Adjust brightness/contrast as needed for the white icon */
+  filter: invert(1) brightness(1.1);
 }
-
-/* Add other specific dark-mode overrides here if needed. */
