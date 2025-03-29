@@ -20,7 +20,7 @@ Web Developer.
 
 ## 📸 Screenshot
 
-<img src="https://cvws.icloud-content.com/B/AYEduZvVRFf72COensQi-j4huCU9ASHO1WMSZtPZvVLACx6h8WCAryEl/portfolio-site.gif?o=AmE-YH0ko91uJZZP9JTqn9uHNQb7XT8lZCe9Qltuygx9&v=1&x=3&a=CAogOVCt7gKZrXEwMp9ho-Ptk4PJLYQg8SIqDh705sgOGtISbRCSrLOc3jIYkomPnt4yIgEAUgQhuCU9WgSAryElaiY1hiDRrWhVCF8xsEjsnaIsA2UE4qm_3azxGCGd-47JFVkd8UyKAnImbDAQEXPrHJTO_MAd4-uXpOoYppq69GbZjJgF7WvX_XGRC51TcHU&e=1743283012&fl=&r=ad9ea64b-f73a-4459-b2fd-fcb3114cd44d-1&k=tULbpaCffcMa36IJHCNS8w&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=71&s=DdbIQU9p7o31N2-X4PsZID2itCU&cd=i" alt="Portfolio Site Screenshot">
+<img src="https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif" alt="Portfolio Site Screenshot">
 
 ## 🛠️ Technologies Used
 
