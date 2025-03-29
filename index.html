@@ -4,33 +4,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Andy Su - Portfolio</title> <!-- Added a title -->
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
+  <meta name="description" content="Andy Su's personal portfolio website showcasing projects and skills."> <!-- Added description -->
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
+  <meta property="og:title" content="Andy Su - Portfolio">
+  <meta property="og:type" content="website"> <!-- More specific type -->
+  <meta property="og:url" content=""> <!-- Add your live URL here -->
+  <meta property="og:image" content=""> <!-- Add a preview image URL -->
+  <meta property="og:image:alt" content="Preview of Andy Su's Portfolio Website">
+  <meta property="og:description" content="Andy Su's personal portfolio website showcasing projects and skills.">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="theme-color" content="#ffffff"> <!-- Set initial theme color -->
+  <!-- Update theme-color meta tag dynamically if desired, or have separate ones -->
+
 </head>
 
 <body>
 
-<!-- TODO: navbar that scrolls to specific header (projects, about me, etc.)-->
-
 <!-- Theme Toggle Button -->
-<button id="theme-toggle" style="position: fixed; top: 10px; right: 10px; z-index: 100;">
+<button id="theme-toggle">
   Toggle Theme
 </button>
 
+<!-- ======================= -->
+<!-- == FULLSCREEN BANNER == -->
+<!-- ======================= -->
 <div id="interactive-banner">
 
   <!-- Container specifically for particles/lines -->
@@ -42,18 +46,38 @@
   <div class="banner-content">
     <h1>Hi, I'm Andy</h1>
     <p>Computer Science Undergraduate | Full Stack Web Developer</p>
-
-    <!-- Add social icons etc. here -->
     <div class="social-icons">
-      <a href="https://github.com/ansidian" title="GitHub Profile">
+      <a href="https://github.com/ansidian" title="GitHub Profile" target="_blank" rel="noopener noreferrer"> <!-- Added target/rel -->
         <img src="img/github.png" height="30" width="30" alt="Github Logo"/>
       </a>
-      <a href="https://www.linkedin.com/in/andysu96/" title="LinkedIn Profile">
+      <a href="https://www.linkedin.com/in/andysu96/" title="LinkedIn Profile" target="_blank" rel="noopener noreferrer"> <!-- Added target/rel -->
         <img src="img/linkedin.png" height="30" width="30" alt="LinkedIn Logo"/>
       </a>
     </div>
+    <!-- Optional: Add a subtle scroll down indicator if desired -->
+    <!-- <div class="scroll-down-indicator">↓</div> -->
   </div>
 </div>
+<!-- ======================= -->
+<!-- = END FULLSCREEN BANNER = -->
+<!-- ======================= -->
+
+
+<!-- ======================= -->
+<!-- ====== NAVIGATION ===== -->
+<!-- ======================= -->
+<nav id="main-nav">
+  <div class="section-container nav-container"> <!-- Use section-container for width consistency -->
+    <a href="#projects-section">Projects</a>
+    <a href="#about-me-section">About Me</a>
+    <!-- Add more links as needed (e.g., Contact) -->
+    <!-- <a href="#contact-section">Contact</a> -->
+  </div>
+</nav>
+<!-- ======================= -->
+<!-- === END NAVIGATION ==== -->
+<!-- ======================= -->
+
 
 <!-- ======================= -->
 <!-- ==== PROJECTS SECTION = -->
@@ -71,8 +95,8 @@
         <div class="project-details">
           <h3>Dolphins Swim Academy</h3>
           <p class="project-tech">
-            <span>HTML</span> <span>CSS</span> <span>JavaScript</span> <span>Springboot</span> <span>JTE</span> <span>MySQL</span> <span>REST
-            API</span>
+            <span>HTML</span> <span>CSS</span> <span>JavaScript</span> <span>Springboot</span> <span>JTE</span> <span>MySQL</span>
+            <span>REST API</span>
           </p>
           <p class="project-description">
             Java (Spring Boot) REST API for swim academy management. Handles class scheduling, student enrollment, and detailed roster viewing.
@@ -106,6 +130,7 @@
 <!-- ======================= -->
 <!-- == END ABOUT ME SECTION = -->
 <!-- ======================= -->
+
 
 <script src="js/app.js"></script>
 </body>

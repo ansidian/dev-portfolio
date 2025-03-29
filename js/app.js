@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // --- Configuration & Dynamic Calculation Variables ---
   const particles = [];
-  const numParticles = 90; // Keep this relatively low for O(n^2) line drawing
+  const numParticles = 120; // Keep this relatively low for O(n^2) line drawing
 
   // --- Physics & Interaction ---
-  const interactionRadius = 90; // Increased slightly for more visible effect
+  const interactionRadius = 110; // Increased slightly for more visible effect
   const repulsionStrength = 0.5;
   const baseSpeed = 0.2;
   const damping = 0.97; // Friction
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const minSeparationDistance = 8;    // <<< NEW: Min distance for particle repulsion (tune this!)
 
   // Line Drawing Variables
-  const maxLineDistance = 100; // Max distance to draw a line
+  const maxLineDistance = 150; // Max distance to draw a line
   const lineOpacityFactor = 1.5; // Adjust fade effect (higher = fades faster)
 
   let bannerRect = banner.getBoundingClientRect();

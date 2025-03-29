@@ -12,6 +12,10 @@
   --text-color-banner: #1f2937; /* Text specifically on the banner */
   --page-bg: #ffffff;
   --text-color-page: #1f2937; /* Default text color for the page */
+  --nav-bg: #ffffff; /* Navbar background */
+  --nav-text: #374151;
+  --nav-hover-text: #1f2937;
+  --nav-border-bottom: #e5e7eb; /* Optional border */
 
 
   /* -- Project Cards Colors -- */
@@ -30,10 +34,6 @@
   --button-outline-hover-bg: #f3f4f6;
   --button-outline-hover-text: #1f2937;
 
-  /* -- Theme Colors (Dark Theme - Overrides applied via body.dark-mode) -- */
-  /* Note: These are defined here but applied lower down for clarity */
-  /* --banner-bg-dark: #111827; ... etc */
-
   /* -- Component & Animation Configuration -- */
   --particle-size: 3px;
   --particle-base-opacity: 0.5;
@@ -41,6 +41,7 @@
   --transition-speed: 0.3s; /* For non-transform properties like color, opacity */
   --hover-transition-speed: 0.3s; /* Specific for hover effects */
   --particle-line-thickness: 1px;
+  --card-border-radius: 8px; /* Added for consistency */
 
 }
 
@@ -52,6 +53,10 @@ body.dark-mode {
   --text-color-banner: #f3f4f6;
   --page-bg: #111827;
   --text-color-page: #f3f4f6;
+  --nav-bg: #1f2937; /* Darker nav background */
+  --nav-text: #d1d5db;
+  --nav-hover-text: #ffffff;
+  --nav-border-bottom: #374151;
 
   /* Project Card Dark Colors */
   --card-bg: #374151; /* Dark gray card */
@@ -76,6 +81,10 @@ body.dark-mode {
    ================================= */
 /* Affects the entire page. Includes resets, body defaults, font settings. */
 
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* More modern font stack */
@@ -96,7 +105,9 @@ body {
 
 h2 { /* Basic styling for section headers */
   text-align: center;
+  margin-top: 0; /* Reset top margin often added by default */
   margin-bottom: 40px;
+  padding-top: 60px; /* Add padding to top of section headers to prevent overlap if nav *were* sticky */
   font-size: 2em;
   color: var(--text-color-page); /* Ensure it uses page text color */
   font-weight: 600;
@@ -104,19 +115,20 @@ h2 { /* Basic styling for section headers */
 
 
 /* =================================
-   INTERACTIVE BANNER - LAYOUT & STRUCTURE
+   INTERACTIVE BANNER - FULL SCREEN
    ================================= */
 /* Styles for the main banner container itself. */
 
 #interactive-banner {
   position: relative;
   width: 100%;
-  min-height: 350px;
+  height: 100vh; /* <<< KEY CHANGE: Make banner fill viewport height */
+  /* min-height: 350px; <<< REMOVED: No longer needed */
   display: flex; /* Use flexbox to easily center content */
   align-items: center; /* Vertical centering */
   justify-content: center; /* Horizontal centering */
   background-color: var(--banner-bg);
-  overflow: hidden;
+  overflow: hidden; /* Keep particles contained */
   transition: background-color var(--transition-speed) ease;
 }
 
@@ -187,112 +199,186 @@ h2 { /* Basic styling for section headers */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Takes full height of parent */
-  min-height: 350px; /* Match the banner's min-height to ensure centering */
+  /* height: 100%; <<< REMOVED: Let flexbox center it naturally in 100vh banner */
+  /* min-height: 350px; <<< REMOVED: No longer needed */
   transition: color var(--transition-speed) ease;
+  max-width: 800px; /* Optional: Constrain width of banner text */
 }
 
-.banner-content h1,
+.banner-content h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
+  margin-bottom: 0.3em; /* Adjust spacing */
+}
+
 .banner-content p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem); /* Responsive font size */
+  margin-bottom: 1em; /* Adjust spacing */
+  max-width: 600px; /* Limit width of paragraph */
   pointer-events: auto; /* Allow text selection etc. */
-  margin-bottom: 0.5em;
 }
-
 
 /* =================================
    SOCIAL ICONS
    ================================= */
-/* Styles for the social media icon links, usually placed within .banner-content */
-
 .social-icons {
-  display: flex; /* Arrange icons horizontally */
-  align-items: center; /* Vertically center icons if they have different heights */
-  gap: 20px; /* Space between each icon */
-  padding: 20px 0; /* Vertical padding */
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Slightly increased gap */
+  margin-top: 15px; /* Space above icons */
+  pointer-events: auto; /* Ensure links are clickable */
 }
 
 .social-icons a {
-  text-decoration: none; /* Remove underline from links */
-  line-height: 0; /* Prevent extra space below images if used inline */
+  text-decoration: none;
+  line-height: 0;
 }
 
 .social-icons img {
-  display: block; /* Treat images as block elements */
-  /* Smooth transitions for hover effects */
+  display: block;
   transition: transform var(--hover-transition-speed) ease-in-out,
   filter var(--hover-transition-speed) ease-in-out;
-  /* The filter transition is for the dark mode invert */
 }
 
 .social-icons img:hover {
-  transform: scale(1.1) translateY(-5px); /* Subtle grow and lift effect */
+  transform: scale(1.15) translateY(-4px); /* Slightly enhanced hover */
 }
+
+/* =================================
+   MAIN NAVIGATION (Below Banner)
+   ================================= */
+#main-nav {
+  background-color: var(--nav-bg);
+  padding: 15px 0;
+  border-bottom: 1px solid var(--nav-border-bottom);
+  transition: background-color var(--transition-speed) ease,
+  border-color var(--transition-speed) ease;
+  /* Not sticky - appears in normal document flow below banner */
+}
+
+.nav-container { /* Extends .section-container */
+  display: flex;
+  justify-content: center; /* Center links horizontally */
+  align-items: center;
+  gap: 30px; /* Space between nav links */
+}
+
+#main-nav a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: color var(--hover-transition-speed) ease,
+  background-color var(--hover-transition-speed) ease;
+}
+
+#main-nav a:hover {
+  color: var(--nav-hover-text);
+  /* Optional: add subtle background on hover */
+  /* background-color: rgba(0, 0, 0, 0.05); */
+}
+
+/* Dark mode adjustments for nav link hover */
+body.dark-mode #main-nav a:hover {
+  /* background-color: rgba(255, 255, 255, 0.1); */
+}
+
 
 /* =================================
    PROJECTS SECTION
    ================================= */
 #projects-section {
-  padding: 60px 0; /* Vertical spacing for the section */
-  background-color: var(--page-bg); /* Match page background */
+  /* padding: 60px 0; <<< REMOVED: Padding handled by h2 */
+  background-color: var(--page-bg);
   transition: background-color var(--transition-speed) ease;
 }
 
 .project-cards-container {
   display: flex;
-  flex-direction: column; /* Stack cards vertically */
-  align-items: center; /* Center cards horizontally */
-  gap: 40px; /* Space between future project cards */
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Space between project cards */
+  padding-bottom: 60px; /* Add padding at the bottom of the container */
 }
 
 .project-card {
   display: flex;
-  width: 85%; /* Target width */
+  flex-direction: column; /* Stack image and text vertically on smaller screens */
+  width: 90%; /* Adjust width for better responsiveness */
   max-width: 950px; /* Max width constraint */
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-shadow);
-  overflow: hidden; /* Keep image corners rounded */
-  text-align: left; /* Override centered section title */
+  overflow: hidden;
+  text-align: left;
   transition: transform var(--hover-transition-speed) ease,
   box-shadow var(--hover-transition-speed) ease,
   background-color var(--transition-speed) ease,
   border-color var(--transition-speed) ease;
 }
 
+/* Apply horizontal layout only on larger screens */
+@media (min-width: 768px) {
+  .project-card {
+    flex-direction: row; /* Side-by-side layout */
+    width: 85%; /* Restore original width target */
+  }
+}
+
+
 .project-card:hover {
-  transform: translateY(-6px); /* Slightly more pronounced lift */
+  transform: translateY(-6px);
   box-shadow: var(--card-hover-shadow);
 }
 
 .project-thumbnail {
-  flex: 0 0 40%; /* Image container takes up 40% of width, doesn't grow/shrink */
-  max-width: 380px; /* Optional: prevent image area getting huge */
-  min-width: 250px; /* Optional: ensure minimum image width */
+  flex-shrink: 0; /* Prevent shrinking */
   position: relative;
-  overflow: hidden; /* Needed for image hover zoom */
+  overflow: hidden;
+  /* Adjustments for responsive layout */
+  width: 100%; /* Full width when stacked vertically */
+  height: 250px; /* Fixed height for vertical layout */
+}
+
+@media (min-width: 768px) {
+  .project-thumbnail {
+    flex-basis: 40%; /* Take up 40% width */
+    max-width: 380px;
+    min-width: 250px;
+    height: auto; /* Let height be determined by content/aspect ratio */
+    aspect-ratio: 16 / 10; /* Maintain aspect ratio */
+  }
 }
 
 .project-thumbnail img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Crop image nicely to fit container */
-  transition: transform 0.4s ease; /* Smooth zoom on hover */
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
 .project-card:hover .project-thumbnail img {
-  transform: scale(1.05); /* Zoom image slightly on card hover */
+  transform: scale(1.05);
 }
 
 .project-details {
-  flex: 1 1 60%; /* Takes remaining space, allows growth/shrink */
-  padding: 25px 35px; /* Internal padding */
+  flex-grow: 1; /* Take remaining space */
+  padding: 25px 30px; /* Adjust padding */
   display: flex;
-  flex-direction: column; /* Stack content vertically */
+  flex-direction: column;
   color: var(--card-text-color);
   transition: color var(--transition-speed) ease;
 }
+
+@media (min-width: 768px) {
+  .project-details {
+    flex-basis: 60%; /* Take up 60% width */
+    padding: 30px 40px; /* More padding on larger screens */
+  }
+}
+
 
 .project-details h3 {
   margin-top: 0;
@@ -305,17 +391,17 @@ h2 { /* Basic styling for section headers */
 .project-tech {
   margin-bottom: 15px;
   font-size: 0.9em;
-  line-height: 1.5; /* Space out tags if they wrap */
+  line-height: 1.5;
 }
 
 .project-tech span {
-  display: inline-block; /* Allow padding and margins */
+  display: inline-block;
   background-color: var(--tech-tag-bg);
   color: var(--tech-tag-text);
   padding: 4px 10px;
   border-radius: 4px;
   margin-right: 6px;
-  margin-bottom: 6px; /* Handle wrapping */
+  margin-bottom: 6px;
   font-weight: 500;
   transition: background-color var(--transition-speed) ease,
   color var(--transition-speed) ease;
@@ -323,14 +409,14 @@ h2 { /* Basic styling for section headers */
 
 .project-description {
   margin-bottom: 20px;
-  flex-grow: 1; /* Pushes links down if content is short */
+  flex-grow: 1;
 }
 
 .project-links {
-  margin-top: auto; /* Pushes links to bottom (works with flex-grow on desc) */
+  margin-top: auto;
   display: flex;
-  flex-wrap: wrap; /* Allow buttons to wrap on small screens if needed */
-  gap: 15px; /* Space between buttons */
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 /* General Button Styles */
@@ -346,15 +432,16 @@ h2 { /* Basic styling for section headers */
   color var(--hover-transition-speed) ease,
   border-color var(--hover-transition-speed) ease,
   transform var(--hover-transition-speed) ease;
-  border: 1px solid transparent; /* Base border */
+  border: 1px solid transparent;
+  cursor: pointer; /* Add cursor pointer */
 }
 
 .button:hover {
-  transform: translateY(-2px); /* Slight lift on button hover */
+  transform: translateY(-2px);
 }
 
 /* Primary Button */
-.button {
+.button { /* This is already the primary style definition */
   background-color: var(--button-bg);
   color: var(--button-text);
   border-color: var(--button-bg);
@@ -375,61 +462,64 @@ h2 { /* Basic styling for section headers */
 .button.button-outline:hover {
   background-color: var(--button-outline-hover-bg);
   color: var(--button-outline-hover-text);
-  border-color: var(--button-outline-hover-bg); /* Match bg or keep border */
+  border-color: var(--button-outline-hover-bg); /* Match bg */
 }
 
 /* =================================
    ABOUT ME SECTION
    ================================= */
 #about-me-section {
+  /* padding: 60px 0; <<< REMOVED: Padding handled by h2 */
   background-color: var(--page-bg); /* Match page background */
   color: var(--text-color-page);
   transition: background-color var(--transition-speed) ease;
-  padding: 60px 0;
+  padding-bottom: 60px; /* Add padding at the bottom of the section */
+}
+
+#about-me-section .section-container p {
+  max-width: 800px; /* Constrain text width */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
 }
 
 /* =================================
    THEME TOGGLE BUTTON
    ================================= */
-/* Styles for the button used to switch between light and dark themes. */
-
 #theme-toggle {
-  position: fixed; /* Keep it visible regardless of scroll position */
-  top: 10px;
-  right: 10px;
-  z-index: 100; /* Ensure it's above almost everything */
+  position: fixed;
+  top: 15px; /* Increased spacing */
+  right: 15px; /* Increased spacing */
+  z-index: 100;
   padding: 8px 15px;
   border: 1px solid var(--text-color-page);
   background-color: var(--page-bg);
   color: var(--text-color-page);
   cursor: pointer;
   border-radius: 5px;
-  /* Transition all applicable properties smoothly */
+  font-size: 0.9em; /* Consistent font size */
   transition: background-color var(--transition-speed) ease,
   color var(--transition-speed) ease,
-  border-color var(--transition-speed) ease;
+  border-color var(--transition-speed) ease,
+  transform var(--hover-transition-speed) ease; /* Added transform */
 }
 
 #theme-toggle:hover {
   background-color: var(--text-color-page);
   color: var(--page-bg);
+  transform: scale(1.05); /* Slight grow on hover */
 }
 
 
 /* =================================
    DARK MODE THEME - SPECIFIC ELEMENT OVERRIDES
    ================================= */
-/* These rules apply *specifically* when dark mode is active.
-   They often rely on the variables defined in body.dark-mode at the top. */
-
-/* Example: Inverting social icons in dark mode */
 body.dark-mode .social-icons img {
-  filter: invert(1); /* Simple way to make dark icons visible on dark bg */
+  filter: invert(1) brightness(0.9) contrast(1.1); /* Adjust filter for better visibility */
 }
 
-/* Add other specific dark-mode overrides here if needed.
-   For example:
-   body.dark-mode .some-specific-element {
-     border-color: var(--special-dark-border);
-   }
-*/
+body.dark-mode .social-icons img:hover {
+  filter: invert(1) brightness(1.1) contrast(1); /* Brighten on hover */
+}
+
+/* Add other specific dark-mode overrides here if needed. */
