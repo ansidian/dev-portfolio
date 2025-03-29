@@ -10,25 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Banner elements not found!");
     return;
   }
-
+  // --- Configuration & Dynamic Calculation Variables ---
   const particles = [];
-  const numParticles = 75; // Keep this relatively low for O(n^2) line drawing
+  const numParticles = 90; // Keep this relatively low for O(n^2) line drawing
+
+  // --- Physics & Interaction ---
   const interactionRadius = 90; // Increased slightly for more visible effect
   const repulsionStrength = 0.5;
   const baseSpeed = 0.2;
-  const damping = 0.95; // Friction
+  const damping = 0.97; // Friction
+  const repulsionStrengthMouse = 0.3;   // Mouse repulsion strength
+  const particleRepulsionStrength = 0.04; // <<< NEW: Particle-particle repulsion strength (tune this!)
+  const minSeparationDistance = 8;    // <<< NEW: Min distance for particle repulsion (tune this!)
 
   // Line Drawing Variables
   const maxLineDistance = 100; // Max distance to draw a line
   const lineOpacityFactor = 1.5; // Adjust fade effect (higher = fades faster)
 
   let bannerRect = banner.getBoundingClientRect();
+
   // Initialize mouse far away so particles don't jump initially
   let mouseX = -interactionRadius * 5;
   let mouseY = -interactionRadius * 5;
   let animationFrameId = null;
 
-  // Particle Class
   class Particle {
     constructor(x, y) {
       this.x = x;
@@ -37,61 +42,73 @@ document.addEventListener('DOMContentLoaded', () => {
       this.vy = (Math.random() - 0.5) * baseSpeed * 2;
       this.element = document.createElement('div');
       this.element.classList.add('particle');
-      // Use getComputedStyle outside the constructor if possible, or store it
       this.size = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--particle-size')) || 3;
       particleContainer.appendChild(this.element);
-      this.updatePosition();
+      this.updatePosition(); // Initial position
     }
 
     updatePosition() {
+      // Center the particle div on its logical x,y
       this.element.style.transform = `translate(${Math.round(this.x - this.size / 2)}px, ${Math.round(this.y - this.size / 2)}px)`;
     }
 
-    updatePhysics() {
-      // Mouse interaction
-      const dxMouse = this.x - mouseX;
-      const dyMouse = this.y - mouseY;
-      const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-      let forceX = 0;
-      let forceY = 0;
-
-      if (distMouse < interactionRadius && distMouse > 1) {
-        const force = (1 - distMouse / interactionRadius) * repulsionStrength;
-        forceX = (dxMouse / distMouse) * force; // Push away from mouse
-        forceY = (dyMouse / distMouse) * force;
-      }
-
-      // Apply mouse force
-      this.vx += forceX;
-      this.vy += forceY;
-
-      // Apply damping (friction)
-      this.vx *= damping;
-      this.vy *= damping;
-
-      // Add slight random drift (optional, remove if unwanted)
-      this.vx += (Math.random() - 0.5) * 0.05;
-      this.vy += (Math.random() - 0.5) * 0.05;
-
-      // Speed limit
-      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-      const maxSpeed = baseSpeed * 5; // Limit max speed
-      if (speed > maxSpeed) {
-        this.vx = (this.vx / speed) * maxSpeed;
-        this.vy = (this.vy / speed) * maxSpeed;
-      }
-
-      // Update position based on velocity
-      this.x += this.vx;
-      this.y += this.vy;
-
-      // Boundary checks (wrapping)
-      if (this.x < -this.size) this.x = bannerRect.width + this.size;
-      if (this.x > bannerRect.width + this.size) this.x = -this.size;
-      if (this.y < -this.size) this.y = bannerRect.height + this.size;
-      if (this.y > bannerRect.height + this.size) this.y = -this.size;
-    }
+    // Physics update is now handled outside in the animationLoop after calculateAllForces
   } // End Particle Class
+
+  // --- NEW: Force Calculation Function ---
+  function calculateAllForces() {
+    // ... (Keep the calculateAllForces function exactly as you provided in the previous message) ...
+    // It handles mouse repulsion and particle-particle repulsion, applying forces directly to p1.vx/vy and p2.vx/vy
+    const minDistForMouseCalc = 3 * 3; // Squared min distance for mouse force stability
+    const separationThresholdSq = minSeparationDistance * minSeparationDistance; // Squared for efficiency
+
+    for (let i = 0; i < particles.length; i++) {
+      const p1 = particles[i];
+
+      // --- 1. Mouse Interaction ---
+      const dxMouse = p1.x - mouseX;
+      const dyMouse = p1.y - mouseY;
+      const distMouseSq = dxMouse * dxMouse + dyMouse * dyMouse;
+
+      // Apply mouse repulsion force directly to velocity
+      // Use the correct strength variable: repulsionStrengthMouse
+      if (distMouseSq < interactionRadius * interactionRadius && distMouseSq > minDistForMouseCalc) {
+        const distMouse = Math.sqrt(distMouseSq);
+        // Use repulsionStrengthMouse here!
+        const forceMagnitude = (1 - distMouse / interactionRadius) * repulsionStrengthMouse;
+        const forceX = (dxMouse / distMouse) * forceMagnitude;
+        const forceY = (dyMouse / distMouse) * forceMagnitude;
+        p1.vx += forceX; // Add mouse force to velocity
+        p1.vy += forceY;
+      }
+
+      // --- 2. Particle-Particle Repulsion (Optimized Loop) ---
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+
+        const dx = p1.x - p2.x;
+        const dy = p1.y - p2.y;
+        const distSq = dx * dx + dy * dy;
+
+        // Apply particle-particle repulsion force directly to velocities
+        if (distSq < separationThresholdSq && distSq > 0.01) { // Add small > 0 check
+          const dist = Math.sqrt(distSq);
+          // Using linear falloff as defined before
+          const forceMag = (1 - dist / minSeparationDistance) * particleRepulsionStrength;
+          const effectiveForceMag = Math.max(0, forceMag); // Ensure repulsive
+
+          const forceX = (dx / dist) * effectiveForceMag;
+          const forceY = (dy / dist) * effectiveForceMag;
+
+          // Apply force to both particles (Newton's 3rd Law)
+          p1.vx += forceX;
+          p1.vy += forceY;
+          p2.vx -= forceX; // Apply equal and opposite force
+          p2.vy -= forceY;
+        }
+      }
+    } // End force calculation loop
+  }
 
   function createParticles() {
     lineSvg.innerHTML = ''; // Clear old lines
@@ -107,48 +124,111 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function drawLines() {
-    lineSvg.innerHTML = ''; // Simple clear (less efficient but works)
+
+    while (lineSvg.firstChild) {
+      lineSvg.removeChild(lineSvg.firstChild);
+    }
+
+    const mouseIsActive = mouseX > -interactionRadius && mouseY > -interactionRadius; // Check if mouse has entered the banner at least once
 
     for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const p1 = particles[i];
-        const p2 = particles[j];
+      const p1 = particles[i];
 
+      // --- 1. Particle-to-Particle Lines ---
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
         const dx = p1.x - p2.x;
         const dy = p1.y - p2.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distanceSq = dx * dx + dy * dy; // Use squared distance for comparison
 
-        if (distance < maxLineDistance) {
-          // const opacity = 1 - (distance / maxLineDistance); // Linear fade
-          const opacity = Math.max(0, 1 - Math.pow(distance / maxLineDistance, lineOpacityFactor)); // Steeper fade
+        if (distanceSq < maxLineDistance * maxLineDistance) {
+          const distance = Math.sqrt(distanceSq); // Calculate actual distance only if needed
+          const opacity = Math.max(0, 1 - Math.pow(distance / maxLineDistance, lineOpacityFactor));
 
-          if (opacity > 0.05) { // Don't draw nearly invisible lines
+          if (opacity > 0.05) {
             const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             line.setAttribute('x1', Math.round(p1.x));
             line.setAttribute('y1', Math.round(p1.y));
             line.setAttribute('x2', Math.round(p2.x));
             line.setAttribute('y2', Math.round(p2.y));
             line.setAttribute('stroke-opacity', opacity.toFixed(2));
-            // Stroke color/width are handled by CSS (:root --particle-glow-color)
+            // Optional: Add a class for particle-particle lines if needed later
+            // line.classList.add('particle-line');
             lineSvg.appendChild(line);
           }
         }
-      }
-    }
+      } // End particle-to-particle loop (j)
+
+      // --- 2. Particle-to-Cursor Lines (NEW SECTION) ---
+      // Only draw lines to cursor if it's likely within the interaction area
+      if (mouseIsActive) {
+        const dxMouse = p1.x - mouseX;
+        const dyMouse = p1.y - mouseY;
+        const distanceMouseSq = dxMouse * dxMouse + dyMouse * dyMouse; // Use squared distance
+
+        // Check if particle is close enough to the mouse cursor
+        if (distanceMouseSq < maxLineDistance * maxLineDistance) {
+          const distanceMouse = Math.sqrt(distanceMouseSq);
+          // Use the same opacity calculation, or you could vary it
+          const opacityMouse = Math.max(0, 1 - Math.pow(distanceMouse / maxLineDistance, lineOpacityFactor));
+
+          if (opacityMouse > 0.05) {
+            const lineToMouse = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            lineToMouse.setAttribute('x1', Math.round(p1.x));
+            lineToMouse.setAttribute('y1', Math.round(p1.y));
+            lineToMouse.setAttribute('x2', Math.round(mouseX)); // Connect to mouse X
+            lineToMouse.setAttribute('y2', Math.round(mouseY)); // Connect to mouse Y
+            lineToMouse.setAttribute('stroke-opacity', opacityMouse.toFixed(2));
+            // Optional: Add a class to style mouse lines differently
+            // lineToMouse.classList.add('mouse-line');
+            lineSvg.appendChild(lineToMouse);
+          }
+        }
+      } // End particle-to-cursor check
+
+    } // End main particle loop (i)
   }
 
   function animationLoop() {
-    // 1. Update physics for all particles
+    // --- NEW: Calculate forces first ---
+    calculateAllForces(); // Calculate mouse and particle-particle forces
+
+    // --- Then update physics & position ---
     for (const particle of particles) {
-      particle.updatePhysics();
+      // --- Apply forces, damping, speed limit, boundary checks ---
+
+      // Apply damping (friction) AFTER forces are added
+      particle.vx *= damping;
+      particle.vy *= damping;
+
+      // Add slight random drift (optional)
+      particle.vx += (Math.random() - 0.5) * 0.03; // Reduced random jitter slightly
+      particle.vy += (Math.random() - 0.5) * 0.03;
+
+      // Speed limit
+      const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+      const maxSpeed = baseSpeed * 5;
+      if (speed > maxSpeed) {
+        particle.vx = (particle.vx / speed) * maxSpeed;
+        particle.vy = (particle.vy / speed) * maxSpeed;
+      }
+
+      // Update position based on final velocity
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      // Boundary checks (wrapping) - Use particle size for buffer
+      const buffer = particle.size;
+      if (particle.x < -buffer) particle.x = bannerRect.width + buffer;
+      if (particle.x > bannerRect.width + buffer) particle.x = -buffer;
+      if (particle.y < -buffer) particle.y = bannerRect.height + buffer;
+      if (particle.y > bannerRect.height + buffer) particle.y = -buffer;
+
+      // --- Update visual position ---
+      particle.updatePosition(); // Update the element's transform style
     }
 
-    // 2. Update particle element positions visually AFTER physics updates
-    for (const particle of particles) {
-      particle.updatePosition();
-    }
-
-    // 3. Draw lines based on new positions
+    // 3. Draw lines based on new positions (includes lines to cursor now)
     drawLines();
 
     // Request next frame
@@ -225,4 +305,5 @@ document.addEventListener('DOMContentLoaded', () => {
     animationFrameId = requestAnimationFrame(animationLoop);
   }
 
-}); // End DOMContentLoaded
+})
+; // End DOMContentLoaded

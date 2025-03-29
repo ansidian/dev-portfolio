@@ -1,87 +1,90 @@
+/* =================================
+   VARIABLES & CONFIGURATION
+   ================================= */
+/* Defines colors, sizes, speeds etc., used throughout the stylesheet.
+   Easy place to tweak the overall look and feel. */
+
 :root {
-  /* Light Theme (Default) */
+  /* -- Theme Colors (Light Theme - Default) -- */
   --banner-bg: #f8f9fa;
   --particle-color: #d1d5db; /* Light gray particles */
-  --particle-glow-color: #9ca3af; /* Slightly darker/more visible */
-  --text-color-banner: #1f2937;
+  --particle-glow-color: #9ca3af; /* Slightly darker/more visible for lines/glow */
+  --text-color-banner: #1f2937; /* Text specifically on the banner */
   --page-bg: #ffffff;
-  --text-color-page: #1f2937;
+  --text-color-page: #1f2937; /* Default text color for the page */
 
-  /* Config */
+  /* -- Theme Colors (Dark Theme - Overrides applied via body.dark-mode) -- */
+  /* Note: These are defined here but applied lower down for clarity */
+  /* --banner-bg-dark: #111827; ... etc */
+
+  /* -- Component & Animation Configuration -- */
   --particle-size: 3px;
   --particle-base-opacity: 0.5;
-  --particle-glow-opacity: 0.8;
-  --transition-speed: 0.3s; /* For non-transform properties like opacity */
+  --particle-glow-opacity: 0.8; /* Max opacity for glowing particles/lines near cursor */
+  --transition-speed: 0.3s; /* For non-transform properties like color, opacity */
+  --hover-transition-speed: 0.3s; /* Specific for hover effects */
+  --particle-line-thickness: 1px;
 }
 
+/* Defines the variable overrides for Dark Mode */
 body.dark-mode {
-  /* Dark Theme */
   --banner-bg: #111827;
   --particle-color: #4b5563; /* Muted dark particles */
-  --particle-glow-color: #9ca3af; /* Lighter gray glow */
+  --particle-glow-color: #9ca3af; /* Lighter gray glow/lines */
   --text-color-banner: #f3f4f6;
-  --page-bg: #111827; /* Match banner or make slightly different */
+  --page-bg: #111827;
   --text-color-page: #f3f4f6;
 }
+
+
+/* =================================
+   BASE & GLOBAL STYLES
+   ================================= */
+/* Affects the entire page. Includes resets, body defaults, font settings. */
 
 body {
   margin: 0;
   font-family: sans-serif;
   background-color: var(--page-bg);
   color: var(--text-color-page);
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  /* Apply transitions to properties affected by theme changes */
+  transition: background-color var(--transition-speed) ease,
+  color var(--transition-speed) ease;
 }
+
+
+/* =================================
+   INTERACTIVE BANNER - LAYOUT & STRUCTURE
+   ================================= */
+/* Styles for the main banner container itself. */
 
 #interactive-banner {
   position: relative;
   width: 100%;
-  min-height: 350px; /* Adjust as needed */
+  min-height: 350px; /* Ensure banner has minimum height */
   background-color: var(--banner-bg);
-  overflow: hidden; /* Keep particles contained */
+  overflow: hidden; /* Keep particles and effects contained */
   transition: background-color var(--transition-speed) ease;
 }
 
+
+/* =================================
+   PARTICLE SYSTEM (Visual Layer within Banner)
+   ================================= */
+/* Styles related to the particle container, individual particles,
+   and the lines connecting them. */
+
+/* Container for particles and lines */
 #particle-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 1; /* Below banner content, but allows lines/particles relative positioning */
 }
 
-#line-svg {
-  position: absolute; /* Position within the container */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* SVG should not capture mouse events */
-  z-index: 1; /* Draw lines behind particles */
-}
-
-
-.banner-content {
-  position: relative; /* Relative to the banner */
-  z-index: 2; /* Above particles */
-  color: var(--text-color-banner);
-  text-align: center;
-  padding: 20px;
-  transition: color var(--transition-speed) ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  min-height: 350px; /* Match banner */
-  pointer-events: none; /* Allow mouse events through */
-}
-
-.banner-content h1, .banner-content p {
-  pointer-events: auto; /* Enable events for text */
-  margin-bottom: 0.5em;
-}
-
+/* Individual Particles */
 .particle {
   position: absolute;
   width: var(--particle-size);
@@ -89,36 +92,133 @@ body {
   background-color: var(--particle-color);
   border-radius: 50%;
   opacity: var(--particle-base-opacity);
-  transition: opacity var(--transition-speed) ease-out, background-color var(--transition-speed) ease-out; /* Transition visual changes */
-  will-change: transform, opacity; /* Optimize */
-  pointer-events: none;
-  z-index: 2; /* Ensure particles are drawn ABOVE the lines */
-  /* Initial top/left set by JS */
+  transition: opacity var(--transition-speed) ease-out,
+  background-color var(--transition-speed) ease-out;
+  pointer-events: none; /* Particles shouldn't block mouse interaction */
+  z-index: 2; /* Ensure particles are drawn ABOVE the lines SVG */
+  /* Note: Initial 'top' and 'left' are set dynamically by JavaScript */
 }
 
+/* Connection Lines SVG Container */
+#line-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* SVG layer shouldn't capture mouse events */
+  z-index: 1; /* Draw lines behind particles but above banner bg */
+}
+
+/* Individual Connection Lines */
 #line-svg line {
-  stroke: var(--particle-glow-color); /* Use a theme color */
-  stroke-width: 1px; /* Adjust thickness */
-  stroke-linecap: round; /* Nicer line ends */
-  /* Opacity will be set dynamically via JS based on distance */
+  stroke: var(--particle-glow-color); /* Use theme variable for line color */
+  stroke-width: var(--particle-line-thickness);
+  stroke-linecap: round; /* Nicer appearance for line endings */
+  /* Note: Opacity and coordinates (x1, y1, x2, y2) are set dynamically by JavaScript */
+  transition: stroke var(--transition-speed) ease; /* Smooth color change on theme switch */
 }
 
-/* Theme toggle button styles (same as before) */
+
+/* =================================
+   BANNER CONTENT (Text & Info Layer)
+   ================================= */
+/* Styles for the text elements displayed over the banner/particle effect. */
+
+.banner-content {
+  position: relative; /* Position relative to #interactive-banner */
+  z-index: 3; /* Ensures content is above particles and lines */
+  color: var(--text-color-banner);
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Takes full height of parent */
+  min-height: 350px; /* Match the banner's min-height to ensure centering */
+  transition: color var(--transition-speed) ease;
+}
+
+.banner-content h1,
+.banner-content p {
+  pointer-events: auto; /* Allow text selection etc. */
+  margin-bottom: 0.5em;
+}
+
+
+/* =================================
+   SOCIAL ICONS
+   ================================= */
+/* Styles for the social media icon links, usually placed within .banner-content */
+
+.social-icons {
+  display: flex; /* Arrange icons horizontally */
+  align-items: center; /* Vertically center icons if they have different heights */
+  gap: 20px; /* Space between each icon */
+  padding: 20px 0; /* Vertical padding */
+}
+
+.social-icons a {
+  text-decoration: none; /* Remove underline from links */
+  line-height: 0; /* Prevent extra space below images if used inline */
+}
+
+.social-icons img {
+  display: block; /* Treat images as block elements */
+  /* Smooth transitions for hover effects */
+  transition: transform var(--hover-transition-speed) ease-in-out,
+  filter var(--hover-transition-speed) ease-in-out;
+  /* The filter transition is for the dark mode invert */
+}
+
+.social-icons img:hover {
+  transform: scale(1.1) translateY(-5px); /* Subtle grow and lift effect */
+}
+
+
+/* =================================
+   THEME TOGGLE BUTTON
+   ================================= */
+/* Styles for the button used to switch between light and dark themes. */
+
 #theme-toggle {
+  position: fixed; /* Keep it visible regardless of scroll position */
+  top: 10px;
+  right: 10px;
+  z-index: 100; /* Ensure it's above almost everything */
   padding: 8px 15px;
   border: 1px solid var(--text-color-page);
   background-color: var(--page-bg);
   color: var(--text-color-page);
   cursor: pointer;
   border-radius: 5px;
-  transition: all var(--transition-speed) ease;
-  position: fixed; /* Keep it accessible */
-  top: 10px;
-  right: 10px;
-  z-index: 100;
+  /* Transition all applicable properties smoothly */
+  transition: background-color var(--transition-speed) ease,
+  color var(--transition-speed) ease,
+  border-color var(--transition-speed) ease;
 }
 
 #theme-toggle:hover {
   background-color: var(--text-color-page);
   color: var(--page-bg);
 }
+
+
+/* =================================
+   DARK MODE THEME - SPECIFIC ELEMENT OVERRIDES
+   ================================= */
+/* These rules apply *specifically* when dark mode is active.
+   They often rely on the variables defined in body.dark-mode at the top. */
+
+/* Example: Inverting social icons in dark mode */
+body.dark-mode .social-icons img {
+  filter: invert(1); /* Simple way to make dark icons visible on dark bg */
+}
+
+/* Add other specific dark-mode overrides here if needed.
+   For example:
+   body.dark-mode .some-specific-element {
+     border-color: var(--special-dark-border);
+   }
+*/
