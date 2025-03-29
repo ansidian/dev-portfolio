@@ -1,57 +1,53 @@
-
 # Personal Portfolio Website
 
 [![Deploy Status](https://img.shields.io/github/deployments/ansidian/dev-portfolio/github-pages?label=GitHub%20Pages&logo=github)](https://ansidian.github.io/dev-portfolio/) <!-- Optional: Replace with your actual deployment badge if using Actions -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Optional: Add license badge -->
 
-This repository contains the source code for my personal portfolio website, designed to showcase my projects, skills, and experience as a Full Stack Web Developer.
+This repository contains the source code for my personal portfolio website, designed to showcase my projects, skills, and experience as a Full Stack
+Web Developer.
 
 **Live Demo:** [https://ansidian.github.io/dev-portfolio/](https://ansidian.github.io/dev-portfolio/)
 
 ## ✨ Features
 
-*   **Interactive Particle Banner:** A visually engaging fullscreen banner using HTML Canvas API.
-    *   Particles dynamically connect with lines.
-    *   Particles interact with mouse movement (repulsion effect).
-    *   Optimized using a spatial grid for efficient neighbor checks.
-    *   Customizable particle count, colors (accent/base), speed, size, and interaction parameters.
-*   **Light/Dark Theme Toggle:** Switch between light and dark modes with a persistent preference stored using `localStorage`.
-*   **Responsive Design:** Adapts to various screen sizes (further testing/refinement might be needed, particularly for mobile).
+* **Interactive Particle Banner:** A visually engaging fullscreen banner using HTML Canvas API.
+    * Particles dynamically connect with lines.
+    * Particles interact with mouse movement (repulsion effect).
+    * Optimized using a spatial grid for efficient neighbor checks.
+    * Customizable particle count, colors (accent/base), speed, size, and interaction parameters.
+* **Light/Dark Theme Toggle:** Switch between light and dark modes with a persistent preference stored using `localStorage`.
+* **Responsive Design:** Adapts to various screen sizes (further testing/refinement might be needed, particularly for mobile).
 
 ## 📸 Screenshot
 
-*Replace this section with a high-quality screenshot or, even better, an animated GIF showcasing the interactive particle banner and theme toggle in action.*
-
-Example placeholder:
-![Portfolio Screenshot Placeholder](placeholder.png) <!-- Replace 'placeholder.png' with your actual image/gif path or URL -->
-
-*Tip: Tools like ScreenToGif (Windows), Kap (macOS), or Peek (Linux) can help create GIFs easily.*
+![Screenshot of Portfolio Site](https://media.cleanshot.cloud/media/81129/IkFjg8iFPghbo7gDfmiHLNnzGwvrWI76cJ5wKB26.gif?Expires=1743300384&Signature=hXpuD9W602vrvkWavw2sTUT9qsNoPGzXa457b0ogUI2Qw0A~ka4XPz7f7gE~BmgP35ryYVlK58Qs0h93ppyEo-5BUCuwyFTtPRQyxrflBrfWjNBSy2voanT-Fbj5RIlNxITYEvKJRcS3nCoi-QyUm7NOljwUYHnwqtsOCVUAJypUu6CcZM4tr~rJPUMWR4DQ~cmXnvrEhZNeaDB3UYpu05ktcHebWvFzVi86GE7JXl91~P3iDUSnkmhdGuelcKgHINhqIaAJMeXdG9aiApkD4ccKs8zb-AfLBqUvJ9s8tHuQ9slCnOgogeWzJBlb~3u9-mc1TvYTobKHmxRjHelblQ__&Key-Pair-Id=K269JMAT9ZF4GZ)
 
 ## 🛠️ Technologies Used
 
-*   **Frontend:**
-    *   HTML5 (Semantic markup)
-    *   CSS3
-        *   Custom Properties (Variables) for easy theming and configuration.
-        *   Flexbox/Grid
-    *   JavaScript (ES6+)
-        *   DOM Manipulation
-        *   **Canvas API** for the interactive banner rendering and animation.
-        *   `requestAnimationFrame` for smooth animations.
-        *   Event Listeners (mouse movement, resize, clicks).
-        *   `localStorage` for theme persistence.
-*   **Development/Tooling:**
-    *   Git & GitHub
+* **Frontend:**
+    * HTML5 (Semantic markup)
+    * CSS3
+        * Custom Properties (Variables) for easy theming and configuration.
+        * Flexbox/Grid
+    * JavaScript (ES6+)
+        * DOM Manipulation
+        * **Canvas API** for the interactive banner rendering and animation.
+        * `requestAnimationFrame` for smooth animations.
+        * Event Listeners (mouse movement, resize, clicks).
+        * `localStorage` for theme persistence.
+* **Development/Tooling:**
+    * Git & GitHub
 
 ## 🔧 Code Highlights (Canvas Animation - `js/app.js`)
 
-*   **Particle Class:** Defines the properties (position, velocity, size, color type) and state for each particle.
-*   **Canvas Setup & Resize:** Handles canvas dimension adjustments and recalculates parameters on window resize.
-*   **Spatial Grid Optimization:** Uses a grid (`initializeGrid`, `updateGrid`) to efficiently find nearby particles for drawing lines and calculating repulsion, avoiding O(n^2) complexity.
-*   **Physics Simulation:** Implements basic physics including velocity, damping (friction), mouse repulsion, and boundary wrapping.
-*   **Rendering (`drawCanvas`):** Draws particles and lines connecting them (and to the mouse cursor) based on proximity, fading lines with distance.
-*   **Animation Loop (`animationLoop`):** Uses `requestAnimationFrame` for smooth, efficient updates and rendering.
-*   **Theme Integration:** Reads CSS custom properties (`getCssVariable`) to dynamically style particles and lines according to the current theme.
+* **Particle Class:** Defines the properties (position, velocity, size, color type) and state for each particle.
+* **Canvas Setup & Resize:** Handles canvas dimension adjustments and recalculates parameters on window resize.
+* **Spatial Grid Optimization:** Uses a grid (`initializeGrid`, `updateGrid`) to efficiently find nearby particles for drawing lines and calculating
+  repulsion, avoiding O(n^2) complexity.
+* **Physics Simulation:** Implements basic physics including velocity, damping (friction), mouse repulsion, and boundary wrapping.
+* **Rendering (`drawCanvas`):** Draws particles and lines connecting them (and to the mouse cursor) based on proximity, fading lines with distance.
+* **Animation Loop (`animationLoop`):** Uses `requestAnimationFrame` for smooth, efficient updates and rendering.
+* **Theme Integration:** Reads CSS custom properties (`getCssVariable`) to dynamically style particles and lines according to the current theme.
 
 ## 🔮 Future Improvements / TODO
 
@@ -66,8 +62,8 @@ Example placeholder:
 
 Andy Su
 
-*   **GitHub:** [@ansidian](https://github.com/ansidian)
-*   **LinkedIn:** [linkedin.com/in/andysu96](https://www.linkedin.com/in/andysu96/)
+* **GitHub:** [@ansidian](https://github.com/ansidian)
+* **LinkedIn:** [linkedin.com/in/andysu96](https://www.linkedin.com/in/andysu96/)
 
 ---
 
