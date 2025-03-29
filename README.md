@@ -19,8 +19,9 @@ Web Developer.
 * **Responsive Design:** Adapts to various screen sizes (further testing/refinement might be needed, particularly for mobile).
 
 ## 📸 Screenshot
+      
+[![Portfolio Site Screenshot](https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif)](#)
 
-![Portfolio Site Screenshot](https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif)
 ## 🛠️ Technologies Used
 
 * **Frontend:**
