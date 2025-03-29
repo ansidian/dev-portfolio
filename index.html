@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Andy Su - Portfolio</title> <!-- Added a title -->
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="Andy Su's personal portfolio website showcasing projects and skills."> <!-- Added description -->
+  <meta name="description" content="Andy Su's personal portfolio website showcasing projects and skills.">
 
   <meta property="og:title" content="Andy Su - Portfolio">
   <meta property="og:type" content="website"> <!-- More specific type -->
@@ -28,8 +28,9 @@
 <body>
 
 <!-- Theme Toggle Button -->
-<button id="theme-toggle">
-  Toggle Theme
+<!-- Theme Toggle Button -->
+<button id="theme-toggle" title="Toggle light/dark theme"> <!-- Added title for tooltip -->
+  <img id="theme-icon" src="" alt="Toggle theme" width="24" height="24"> <!-- Adjust width/height as needed -->
 </button>
 
 <!-- ======================= -->
@@ -38,13 +39,11 @@
 <div id="interactive-banner">
 
   <!-- Container specifically for particles/lines -->
-  <div id="particle-container">
-    <svg id="line-svg" width="100%" height="100%"></svg>
-  </div>
+  <canvas id="particle-canvas"></canvas>
 
   <!-- Content overlay -->
   <div class="banner-content">
-    <h1>Hi, I'm Andy</h1>
+    <h1>Hi, I'm <span class="name-highlight">Andy</span></h1>
     <p>Computer Science Undergraduate | Full Stack Web Developer</p>
     <div class="social-icons">
       <a href="https://github.com/ansidian" title="GitHub Profile" target="_blank" rel="noopener noreferrer"> <!-- Added target/rel -->

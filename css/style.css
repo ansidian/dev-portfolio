@@ -7,8 +7,9 @@
 :root {
   /* -- Theme Colors (Light Theme - Default) -- */
   --banner-bg: #f8f9fa;
-  --particle-color: #d1d5db; /* Light gray particles */
-  --particle-glow-color: #9ca3af; /* Slightly darker/more visible for lines/glow */
+  --particle-color: #D264B6; /* Light gray particles */
+  --particle-glow-color: #D264B6; /* Slightly darker/more visible for lines/glow */
+  --accent-color: #60a5fa; /* Random Chance */
   --text-color-banner: #1f2937; /* Text specifically on the banner */
   --page-bg: #ffffff;
   --text-color-page: #1f2937; /* Default text color for the page */
@@ -26,7 +27,7 @@
   --card-text-color: #374151; /* Slightly softer than pure black for card body */
   --tech-tag-bg: #e5e7eb;
   --tech-tag-text: #4b5563;
-  --button-bg: #3b82f6; /* Example blue */
+  --button-bg: #60a5fa; /* Example blue */
   --button-text: #ffffff;
   --button-hover-bg: #2563eb;
   --button-outline-border: #6b7280;
@@ -35,7 +36,7 @@
   --button-outline-hover-text: #1f2937;
 
   /* -- Component & Animation Configuration -- */
-  --particle-size: 3px;
+  --particle-size: 4px;
   --particle-base-opacity: 0.5;
   --particle-glow-opacity: 0.8; /* Max opacity for glowing particles/lines near cursor */
   --transition-speed: 0.3s; /* For non-transform properties like color, opacity */
@@ -133,56 +134,20 @@ h2 { /* Basic styling for section headers */
 }
 
 /* =================================
-   PARTICLE SYSTEM (Visual Layer within Banner)
+   PARTICLE SYSTEM (CANVAS)
    ================================= */
 /* Styles related to the particle container, individual particles,
    and the lines connecting them. */
 
-/* Container for particles and lines */
-#particle-container {
+#particle-canvas { /* <<< NEW CANVAS STYLING */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Below banner content, but allows lines/particles relative positioning */
+  z-index: 1; /* Behind banner content, above banner background */
+  pointer-events: none; /* Canvas shouldn't block mouse interaction with content below if needed */
 }
-
-/* Individual Particles */
-.particle {
-  position: absolute;
-  width: var(--particle-size);
-  height: var(--particle-size);
-  background-color: var(--particle-color);
-  border-radius: 50%;
-  opacity: var(--particle-base-opacity);
-  transition: opacity var(--transition-speed) ease-out,
-  background-color var(--transition-speed) ease-out;
-  pointer-events: none; /* Particles shouldn't block mouse interaction */
-  z-index: 2; /* Ensure particles are drawn ABOVE the lines SVG */
-  /* Note: Initial 'top' and 'left' are set dynamically by JavaScript */
-}
-
-/* Connection Lines SVG Container */
-#line-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* SVG layer shouldn't capture mouse events */
-  z-index: 1; /* Draw lines behind particles but above banner bg */
-}
-
-/* Individual Connection Lines */
-#line-svg line {
-  stroke: var(--particle-glow-color); /* Use theme variable for line color */
-  stroke-width: var(--particle-line-thickness);
-  stroke-linecap: round; /* Nicer appearance for line endings */
-  /* Note: Opacity and coordinates (x1, y1, x2, y2) are set dynamically by JavaScript */
-  transition: stroke var(--transition-speed) ease; /* Smooth color change on theme switch */
-}
-
 
 /* =================================
    BANNER CONTENT (Text & Info Layer)
@@ -199,8 +164,6 @@ h2 { /* Basic styling for section headers */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 100%; <<< REMOVED: Let flexbox center it naturally in 100vh banner */
-  /* min-height: 350px; <<< REMOVED: No longer needed */
   transition: color var(--transition-speed) ease;
   max-width: 800px; /* Optional: Constrain width of banner text */
 }
@@ -208,6 +171,12 @@ h2 { /* Basic styling for section headers */
 .banner-content h1 {
   font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
   margin-bottom: 0.3em; /* Adjust spacing */
+}
+
+.banner-content h1 .name-highlight {
+  color: var(--accent-color);
+  /* add transition to match parent h1 and theme changes */
+  transition: color var(--transition-speed) ease;
 }
 
 .banner-content p {
@@ -488,27 +457,32 @@ body.dark-mode #main-nav a:hover {
    ================================= */
 #theme-toggle {
   position: fixed;
-  top: 15px; /* Increased spacing */
-  right: 15px; /* Increased spacing */
+  top: 15px;
+  right: 15px;
   z-index: 100;
-  padding: 8px 15px;
-  border: none; /* Remove the border */
-  box-shadow: 0 0 0 2px var(--text-color-page);
-  background-color: var(--page-bg);
-  color: var(--text-color-page);
+  padding: 5px; /* Add a little padding around the image for easier clicking */
+  border: none; /* Remove border */
+  background-color: transparent; /* Remove background */
+  box-shadow: none; /* Remove box-shadow */
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 0.9em; /* Consistent font size */
-  transition: background-color var(--transition-speed) ease,
-  color var(--transition-speed) ease,
-  border-color var(--transition-speed) ease,
-  transform var(--hover-transition-speed) ease; /* Added transform */
+  border-radius: 50%; /* Optional: make the clickable area circular */
+  line-height: 0; /* Prevent extra space */
+  /* Keep transition for potential future effects like opacity */
+  transition: opacity var(--hover-transition-speed) ease, transform var(--hover-transition-speed) ease;
 }
 
 #theme-toggle:hover {
-  background-color: var(--text-color-page);
-  color: var(--page-bg);
-  transform: scale(1.05); /* Slight grow on hover */
+  /* Remove previous hover effects */
+  /* background-color: var(--text-color-page); */
+  /* color: var(--page-bg); */
+  transform: scale(1.05);
+  opacity: 0.8; /* Add a subtle opacity change on hover */
+}
+
+#theme-toggle img {
+  display: block; /* Remove potential extra space below image */
+  width: 24px; /* Ensure image size is controlled */
+  height: 24px;
 }
 
 
@@ -521,6 +495,11 @@ body.dark-mode .social-icons img {
 
 body.dark-mode .social-icons img:hover {
   filter: invert(1) brightness(1.1) contrast(1); /* Brighten on hover */
+}
+
+body.dark-mode #theme-toggle img {
+  filter: invert(1) brightness(1.1); /* Apply inversion only in dark mode */
+  /* Adjust brightness/contrast as needed for the white icon */
 }
 
 /* Add other specific dark-mode overrides here if needed. */
