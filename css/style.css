@@ -13,6 +13,23 @@
   --page-bg: #ffffff;
   --text-color-page: #1f2937; /* Default text color for the page */
 
+
+  /* -- Project Cards Colors -- */
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb; /* Light gray border */
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --card-text-color: #374151; /* Slightly softer than pure black for card body */
+  --tech-tag-bg: #e5e7eb;
+  --tech-tag-text: #4b5563;
+  --button-bg: #3b82f6; /* Example blue */
+  --button-text: #ffffff;
+  --button-hover-bg: #2563eb;
+  --button-outline-border: #6b7280;
+  --button-outline-text: #4b5563;
+  --button-outline-hover-bg: #f3f4f6;
+  --button-outline-hover-text: #1f2937;
+
   /* -- Theme Colors (Dark Theme - Overrides applied via body.dark-mode) -- */
   /* Note: These are defined here but applied lower down for clarity */
   /* --banner-bg-dark: #111827; ... etc */
@@ -24,6 +41,7 @@
   --transition-speed: 0.3s; /* For non-transform properties like color, opacity */
   --hover-transition-speed: 0.3s; /* Specific for hover effects */
   --particle-line-thickness: 1px;
+
 }
 
 /* Defines the variable overrides for Dark Mode */
@@ -34,6 +52,22 @@ body.dark-mode {
   --text-color-banner: #f3f4f6;
   --page-bg: #111827;
   --text-color-page: #f3f4f6;
+
+  /* Project Card Dark Colors */
+  --card-bg: #374151; /* Dark gray card */
+  --card-border: #4b5563;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --card-text-color: #d1d5db;
+  --tech-tag-bg: #4b5563;
+  --tech-tag-text: #f3f4f6;
+  --button-bg: #60a5fa; /* Lighter blue for dark mode */
+  --button-text: #111827;
+  --button-hover-bg: #3b82f6;
+  --button-outline-border: #9ca3af;
+  --button-outline-text: #d1d5db;
+  --button-outline-hover-bg: #4b5563;
+  --button-outline-hover-text: #f9fafb;
 }
 
 
@@ -44,12 +78,28 @@ body.dark-mode {
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* More modern font stack */
   background-color: var(--page-bg);
   color: var(--text-color-page);
-  /* Apply transitions to properties affected by theme changes */
   transition: background-color var(--transition-speed) ease,
   color var(--transition-speed) ease;
+  line-height: 1.6; /* Improve readability */
+}
+
+/* Utility for consistent section padding/width */
+.section-container {
+  max-width: 1100px; /* Adjust max-width as needed */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Horizontal padding */
+}
+
+h2 { /* Basic styling for section headers */
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2em;
+  color: var(--text-color-page); /* Ensure it uses page text color */
+  font-weight: 600;
 }
 
 
@@ -61,12 +111,14 @@ body {
 #interactive-banner {
   position: relative;
   width: 100%;
-  min-height: 350px; /* Ensure banner has minimum height */
+  min-height: 350px;
+  display: flex; /* Use flexbox to easily center content */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
   background-color: var(--banner-bg);
-  overflow: hidden; /* Keep particles and effects contained */
+  overflow: hidden;
   transition: background-color var(--transition-speed) ease;
 }
-
 
 /* =================================
    PARTICLE SYSTEM (Visual Layer within Banner)
@@ -176,6 +228,177 @@ body {
   transform: scale(1.1) translateY(-5px); /* Subtle grow and lift effect */
 }
 
+/* =================================
+   PROJECTS SECTION
+   ================================= */
+#projects-section {
+  padding: 60px 0; /* Vertical spacing for the section */
+  background-color: var(--page-bg); /* Match page background */
+  transition: background-color var(--transition-speed) ease;
+}
+
+.project-cards-container {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically */
+  align-items: center; /* Center cards horizontally */
+  gap: 40px; /* Space between future project cards */
+}
+
+.project-card {
+  display: flex;
+  width: 85%; /* Target width */
+  max-width: 950px; /* Max width constraint */
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden; /* Keep image corners rounded */
+  text-align: left; /* Override centered section title */
+  transition: transform var(--hover-transition-speed) ease,
+  box-shadow var(--hover-transition-speed) ease,
+  background-color var(--transition-speed) ease,
+  border-color var(--transition-speed) ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px); /* Slightly more pronounced lift */
+  box-shadow: var(--card-hover-shadow);
+}
+
+.project-thumbnail {
+  flex: 0 0 40%; /* Image container takes up 40% of width, doesn't grow/shrink */
+  max-width: 380px; /* Optional: prevent image area getting huge */
+  min-width: 250px; /* Optional: ensure minimum image width */
+  position: relative;
+  overflow: hidden; /* Needed for image hover zoom */
+}
+
+.project-thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crop image nicely to fit container */
+  transition: transform 0.4s ease; /* Smooth zoom on hover */
+}
+
+.project-card:hover .project-thumbnail img {
+  transform: scale(1.05); /* Zoom image slightly on card hover */
+}
+
+.project-details {
+  flex: 1 1 60%; /* Takes remaining space, allows growth/shrink */
+  padding: 25px 35px; /* Internal padding */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  color: var(--card-text-color);
+  transition: color var(--transition-speed) ease;
+}
+
+.project-details h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--text-color-page); /* Use primary text color for heading for emphasis */
+}
+
+.project-tech {
+  margin-bottom: 15px;
+  font-size: 0.9em;
+  line-height: 1.5; /* Space out tags if they wrap */
+}
+
+.project-tech span {
+  display: inline-block; /* Allow padding and margins */
+  background-color: var(--tech-tag-bg);
+  color: var(--tech-tag-text);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 6px;
+  margin-bottom: 6px; /* Handle wrapping */
+  font-weight: 500;
+  transition: background-color var(--transition-speed) ease,
+  color var(--transition-speed) ease;
+}
+
+.project-description {
+  margin-bottom: 20px;
+  flex-grow: 1; /* Pushes links down if content is short */
+}
+
+.project-links {
+  margin-top: auto; /* Pushes links to bottom (works with flex-grow on desc) */
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens if needed */
+  gap: 15px; /* Space between buttons */
+}
+
+/* General Button Styles */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95em;
+  text-align: center;
+  transition: background-color var(--hover-transition-speed) ease,
+  color var(--hover-transition-speed) ease,
+  border-color var(--hover-transition-speed) ease,
+  transform var(--hover-transition-speed) ease;
+  border: 1px solid transparent; /* Base border */
+}
+
+.button:hover {
+  transform: translateY(-2px); /* Slight lift on button hover */
+}
+
+/* Primary Button */
+.button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border-color: var(--button-bg);
+}
+
+.button:hover {
+  background-color: var(--button-hover-bg);
+  border-color: var(--button-hover-bg);
+}
+
+/* Outline Button */
+.button.button-outline {
+  background-color: transparent;
+  color: var(--button-outline-text);
+  border: 1px solid var(--button-outline-border);
+}
+
+.button.button-outline:hover {
+  background-color: var(--button-outline-hover-bg);
+  color: var(--button-outline-hover-text);
+  border-color: var(--button-outline-hover-bg); /* Match bg or keep border */
+}
+
+/* =================================
+   PLACEHOLDER CONTENT STYLES (e.g., About Me)
+   ================================= */
+/* Let's style the placeholder properly now */
+.content-placeholder {
+  background-color: var(--page-bg);
+  color: var(--text-color-page);
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  padding: 60px 0; /* Consistent vertical padding */
+}
+
+.content-placeholder h2 {
+  /* Already styled by global h2 */
+}
+
+.content-placeholder p {
+  max-width: 700px; /* Limit paragraph width for readability */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; /* Center the placeholder text */
+}
 
 /* =================================
    THEME TOGGLE BUTTON
