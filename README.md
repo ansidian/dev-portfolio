@@ -20,8 +20,7 @@ Web Developer.
 
 ## 📸 Screenshot
 
-<img src="https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif" alt="Portfolio Site Screenshot">
-
+![Portfolio Site Screenshot](https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif)
 ## 🛠️ Technologies Used
 
 * **Frontend:**
