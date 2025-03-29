@@ -19,8 +19,8 @@ Web Developer.
 * **Responsive Design:** Adapts to various screen sizes (further testing/refinement might be needed, particularly for mobile).
 
 ## 📸 Screenshot
-
-![Screenshot of Portfolio Site](https://media.cleanshot.cloud/media/81129/IkFjg8iFPghbo7gDfmiHLNnzGwvrWI76cJ5wKB26.gif?Expires=1743300384&Signature=hXpuD9W602vrvkWavw2sTUT9qsNoPGzXa457b0ogUI2Qw0A~ka4XPz7f7gE~BmgP35ryYVlK58Qs0h93ppyEo-5BUCuwyFTtPRQyxrflBrfWjNBSy2voanT-Fbj5RIlNxITYEvKJRcS3nCoi-QyUm7NOljwUYHnwqtsOCVUAJypUu6CcZM4tr~rJPUMWR4DQ~cmXnvrEhZNeaDB3UYpu05ktcHebWvFzVi86GE7JXl91~P3iDUSnkmhdGuelcKgHINhqIaAJMeXdG9aiApkD4ccKs8zb-AfLBqUvJ9s8tHuQ9slCnOgogeWzJBlb~3u9-mc1TvYTobKHmxRjHelblQ__&Key-Pair-Id=K269JMAT9ZF4GZ)
+      
+[![Portfolio Site Screenshot](https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif)](#)
 
 ## 🛠️ Technologies Used
 
