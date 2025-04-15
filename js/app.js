@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+  const mobileMaxWidth = 500;
+
+  if (window.innerWidth <= mobileMaxWidth) {
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      canvas.style.display = 'none'
+    }
+  }
+
   // get references to essential DOM elements
   const banner = document.getElementById('interactive-banner');
   const canvas = document.getElementById('particle-canvas');
