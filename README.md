@@ -53,10 +53,8 @@ Web Developer.
 
 *   [ ] Populate the "About Me" section with relevant content.
 *   [ ] Add more projects to the showcase.
-*   [ ] Implement the "Live Demo" link for the Dolphins Swim Academy project.
-*   [ ] Add more detailed responsive styling adjustments if needed.
-*   [ ] Potentially add animations or transitions to section appearances.
-*   [ ] Further optimize canvas performance if issues arise on lower-end devices.
+*   [x] Implement the "Live Demo" link for the Dolphins Swim Academy project.
+*   [ ] Optimize canvas performance if issues arise on lower-end devices.
 
 ## 📫 Contact
 
@@ -65,6 +63,4 @@ Andy Su
 * **GitHub:** [@ansidian](https://github.com/ansidian)
 * **LinkedIn:** [linkedin.com/in/andysu96](https://www.linkedin.com/in/andysu96/)
 
----
 
-_Feel free to explore the code, raise issues, or suggest improvements!_
