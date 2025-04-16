@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  const mobileMaxWidth = 500;
+  const mobileMaxWidth = 600;
 
   if (window.innerWidth <= mobileMaxWidth) {
     const canvas = document.getElementById('particle-canvas');
@@ -70,18 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // variables to store current theme-dependent styles read from css
   let particleColor = getCssVariable('--particle-color');
   let particleAccentColor = getCssVariable('--accent-color');
-  // let particleSize = parseFloat(getCssVariable('--particle-size')) || 3; // size is now random per particle
-  let lineColor = getCssVariable('--particle-glow-color'); // uses the glow color variable for lines
+  let lineColor = getCssVariable('--particle-glow-color');
   let lineThickness = parseFloat(getCssVariable('--particle-line-thickness')) || 1;
 
   // function to update javascript style variables when the theme changes
   function updateThemeVariables() {
     particleColor = getCssVariable('--particle-color');
     particleAccentColor = getCssVariable('--accent-color');
-    // particleSize = parseFloat(getCssVariable('--particle-size')) || 3; // removed size update here
     lineColor = getCssVariable('--particle-glow-color');
     lineThickness = parseFloat(getCssVariable('--particle-line-thickness')) || 1;
-    // note: accent status & size are determined on creation, not theme change
   }
 
 
@@ -89,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // defines the structure and initial state of a single particle
   class Particle {
-    static nextId = 0; // static counter to assign unique ids for optimization checks
+    // static counter to assign unique ids for optimization checks
+    static nextId = 0;
 
     constructor(x, y) {
       this.id = Particle.nextId++; // assign a unique id
@@ -103,13 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // determine accent status using the config variable defined above
       this.isAccent = Math.random() < particleAccentProbabilityConfig;
-      // note: no dom element is created per particle for canvas rendering
     }
   }
 
 
   // --- canvas and grid setup functions ---
-
   // adjusts canvas dimensions and re-initializes the spatial grid
   function resizeCanvas() {
     bannerRect = banner.getBoundingClientRect(); // get current banner dimensions
@@ -249,7 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- particle creation ---
-
   // initializes or re-initializes the particle system
   function createParticles() {
     particles.length = 0; // clear the existing particle array
@@ -270,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- canvas drawing ---
-
   // renders the current state of particles and lines onto the canvas
   function drawCanvas() {
     // clear the entire canvas before drawing the new frame
@@ -287,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
 
-      // --- 1. draw particle-to-particle lines (using spatial grid) ---
+      // --- draw particle-to-particle lines (using spatial grid) ---
       const p1Col = Math.floor(Math.max(0, Math.min(p1.x, bannerRect.width - 1)) / gridCellSize);
       const p1Row = Math.floor(Math.max(0, Math.min(p1.y, bannerRect.height - 1)) / gridCellSize);
 
@@ -299,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // ensure neighbor cell is valid
           if (checkRow >= 0 && checkRow < gridRows && checkCol >= 0 && checkCol < gridCols) {
-            if (!grid[checkRow] || !grid[checkRow][checkCol]) continue; // cell existence check
+            if (!grid[checkRow] || !grid[checkRow][checkCol]) continue;
 
             // iterate through particles (p2) in the neighbor cell
             for (const p2 of grid[checkRow][checkCol]) {
@@ -332,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // --- 2. draw particle-to-cursor lines ---
+      // --- draw particle-to-cursor lines ---
       if (mouseIsActive) {
         const dxMouse = p1.x - mouseX;
         const dyMouse = p1.y - mouseY;
@@ -360,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // reset global alpha to default (fully opaque) for drawing particles
     ctx.globalAlpha = 1.0;
 
-    // --- 3. draw all particles ---
+    // --- draw all particles ---
     // iterate through all particles
     for (const particle of particles) {
       // set the fill color based on whether the particle is an accent particle
@@ -374,7 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- animation loop ---
-
   // the main loop called recursively via requestAnimationFrame
   function animationLoop() {
     // 1. update the spatial grid with current particle positions
@@ -424,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- event handlers ---
-
   // updates mouse coordinates relative to the banner/canvas
   function handleMouseMove(event) {
     // recalculate bannerRect here to get the current position relative to the viewport
@@ -484,17 +476,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const isDarkMode = document.body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 
-    updateThemeVariables(); // Update JS variables if needed
-    updateThemeIcon();      // Update the button icon
-
-    // Optional: If your particle system needs explicit redraw/reconfig on theme change
-    // if (typeof initializeParticles === 'function') {
-    //   initializeParticles(); // Re-initialize or update particles
-    // }
+    updateThemeVariables();
+    updateThemeIcon();
   }
 
   // --- initialization ---
-
   // apply saved theme preference on page load
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
@@ -523,5 +509,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!animationFrameId) {
     animationFrameId = requestAnimationFrame(animationLoop);
   }
-
 });
