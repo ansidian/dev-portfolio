@@ -6,7 +6,7 @@
 This repository contains the source code for my personal portfolio website, designed to showcase my projects, skills, and experience as a Full Stack
 Web Developer.
 
-**Live Demo:** [https://ansidian.github.io/dev-portfolio/](https://ansidian.github.io/dev-portfolio/)
+**Live Demo:** https://andysu.tech/
 
 ## ✨ Features
 
