@@ -374,6 +374,22 @@ body.dark-mode #main-nav a:hover {
   gap: 15px;
 }
 
+.light-theme-img {
+  display: block;
+}
+
+.dark-theme-img {
+  display: none;
+}
+
+body.dark-mode .light-theme-img {
+  display: none;
+}
+
+body.dark-mode .dark-theme-img {
+  display: block;
+}
+
 /* general Button Styles */
 .button {
   display: inline-block;
@@ -483,3 +499,4 @@ body.dark-mode .social-icons img:hover {
 body.dark-mode #theme-toggle img {
   filter: invert(1) brightness(1.1);
 }
+
