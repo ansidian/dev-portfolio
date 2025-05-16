@@ -1,7 +1,6 @@
 /* =================================
    VARIABLES & CONFIGURATION
    ================================= */
-/* Defines colors, sizes, speeds etc., used throughout the stylesheet. */
 :root {
   /* -- theme colors -- */
   --banner-bg: #f8f9fa;
@@ -62,7 +61,7 @@ body.dark-mode {
   --card-text-color: #d1d5db;
   --tech-tag-bg: #4b5563;
   --tech-tag-text: #f3f4f6;
-  --button-bg: #60a5fa; /* lighter blue */
+  --button-bg: #60a5fa;
   --button-text: #111827;
   --button-hover-bg: #3b82f6;
   --button-outline-border: #9ca3af;
@@ -75,10 +74,8 @@ body.dark-mode {
 /* =================================
    BASE & GLOBAL STYLES
    ================================= */
-/* Affects the entire page. Includes resets, body defaults, font settings. */
-
 html {
-  scroll-behavior: smooth; /* enable smooth scrolling for anchor links */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -91,7 +88,6 @@ body {
   line-height: 1.6;
 }
 
-/* utility for consistent section padding/width */
 .section-container {
   max-width: 1100px;
   margin-left: auto;
@@ -113,8 +109,6 @@ h2 {
 /* =================================
    INTERACTIVE BANNER - FULL SCREEN
    ================================= */
-/* Styles for the main banner container itself. */
-
 #interactive-banner {
   position: relative;
   width: 100%;
@@ -130,9 +124,6 @@ h2 {
 /* =================================
    PARTICLE SYSTEM (CANVAS)
    ================================= */
-/* Styles related to the particle container, individual particles,
-   and the lines connecting them. */
-
 #particle-canvas {
   position: absolute;
   top: 0;
@@ -146,8 +137,6 @@ h2 {
 /* =================================
    BANNER CONTENT (Text & Info Layer)
    ================================= */
-/* Styles for the text elements displayed over the banner/particle effect. */
-
 .banner-content {
   position: relative;
   z-index: 3;
@@ -240,6 +229,110 @@ h2 {
 body.dark-mode #main-nav a:hover {
 }
 
+/* =================================
+   ABOUT ME SECTION
+   ================================= */
+#about-me-section {
+  background-color: var(--page-bg);
+  color: var(--text-color-page);
+  transition: background-color var(--transition-speed) ease;
+}
+
+#about-me-section .section-container p {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
+
+/* =================================
+   PROFILE SECTION
+   ================================= */
+#profile-section {
+  background-color: var(--page-bg);
+  transition: background-color var(--transition-speed) ease;
+  margin-bottom: 0;
+}
+
+.profile-content-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .profile-content-area {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+  }
+}
+
+.profile-image-container {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-image-wrapper {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: border-color var(--transition-speed) ease,
+  box-shadow var(--transition-speed) ease;
+}
+
+@media (min-width: 768px) {
+  .profile-image-wrapper {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+#profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: -50% center;
+  transform: scale(2.1);
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.profile-image-wrapper:hover #profile-image {
+  transform: scale(2.3);
+}
+
+.profile-text {
+  flex-grow: 1;
+  text-align: center;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .profile-text {
+    text-align: left;
+    max-width: 550px;
+  }
+}
+
+.about-me-text {
+  margin-bottom: 1.2em;
+  line-height: 1.8;
+  font-size: 1.05em;
+  color: var(--text-color-page);
+  transition: color var(--transition-speed) ease;
+}
+
+body.dark-mode .profile-image-wrapper {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 
 /* =================================
    PROJECTS SECTION
@@ -253,13 +346,13 @@ body.dark-mode #main-nav a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px; /* space between project cards */
-  padding-bottom: 60px; /* padding at the bottom of the container */
+  gap: 40px;
+  padding-bottom: 60px;
 }
 
 .project-card {
   display: flex;
-  flex-direction: column; /* stack image and text vertically on smaller screens */
+  flex-direction: column;
   width: 90%;
   max-width: 950px;
   background-color: var(--card-bg);
@@ -274,11 +367,10 @@ body.dark-mode #main-nav a:hover {
   border-color var(--transition-speed) ease;
 }
 
-/* horizontal layout only on larger screens */
 @media (min-width: 768px) {
   .project-card {
-    flex-direction: row; /* side-by-side layout */
-    width: 85%; /* original width target */
+    flex-direction: row;
+    width: 85%;
   }
 }
 
@@ -292,16 +384,16 @@ body.dark-mode #main-nav a:hover {
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
-  width: 100%; /* full width when stacked vertically */
-  height: 250px; /* fixed height for vertical layout */
+  width: 100%;
+  height: 250px;
 }
 
 @media (min-width: 768px) {
   .project-thumbnail {
-    flex-basis: 40%; /* 40% width */
+    flex-basis: 40%;
     max-width: 380px;
     min-width: 250px;
-    height: auto; /* height determined by content/aspect ratio */
+    height: auto;
     aspect-ratio: 16 / 10;
   }
 }
@@ -390,7 +482,6 @@ body.dark-mode .dark-theme-img {
   display: block;
 }
 
-/* general Button Styles */
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -404,14 +495,13 @@ body.dark-mode .dark-theme-img {
   border-color var(--hover-transition-speed) ease,
   transform var(--hover-transition-speed) ease;
   border: 1px solid transparent;
-  cursor: pointer; /* Add cursor pointer */
+  cursor: pointer;
 }
 
 .button:hover {
   transform: translateY(-2px);
 }
 
-/* primary Button */
 .button {
   background-color: var(--button-bg);
   color: var(--button-text);
@@ -423,7 +513,6 @@ body.dark-mode .dark-theme-img {
   border-color: var(--button-hover-bg);
 }
 
-/* outline Button */
 .button.button-outline {
   background-color: transparent;
   color: var(--button-outline-text);
@@ -433,24 +522,7 @@ body.dark-mode .dark-theme-img {
 .button.button-outline:hover {
   background-color: var(--button-outline-hover-bg);
   color: var(--button-outline-hover-text);
-  border-color: var(--button-outline-hover-bg); /* Match bg */
-}
-
-/* =================================
-   ABOUT ME SECTION
-   ================================= */
-#about-me-section {
-  background-color: var(--page-bg);
-  color: var(--text-color-page);
-  transition: background-color var(--transition-speed) ease;
-  padding-bottom: 60px;
-}
-
-#about-me-section .section-container p {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1em;
+  border-color: var(--button-outline-hover-bg)
 }
 
 /* =================================
@@ -500,3 +572,6 @@ body.dark-mode #theme-toggle img {
   filter: invert(1) brightness(1.1);
 }
 
+body.dark-mode .profile-image-wrapper {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
