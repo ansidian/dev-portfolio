@@ -1,14 +1,13 @@
 # Personal Portfolio Website
 
-[![Deploy Status](https://img.shields.io/github/deployments/ansidian/dev-portfolio/github-pages?label=GitHub%20Pages&logo=github)](https://ansidian.github.io/dev-portfolio/) <!-- Optional: Replace with your actual deployment badge if using Actions -->
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Optional: Add license badge -->
+[![Deploy Status](https://img.shields.io/github/deployments/ansidian/dev-portfolio/github-pages?label=GitHub%20Pages&logo=github)](https://ansidian.github.io/dev-portfolio/)
 
 This repository contains the source code for my personal portfolio website, designed to showcase my projects, skills, and experience as a Full Stack
 Web Developer.
 
 **Live Demo:** https://andysu.tech/
 
-## ✨ Features
+## Features
 
 * **Interactive Particle Banner:** A visually engaging fullscreen banner using HTML Canvas API.
     * Particles dynamically connect with lines.
@@ -18,11 +17,11 @@ Web Developer.
 * **Light/Dark Theme Toggle:** Switch between light and dark modes with a persistent preference stored using `localStorage`.
 * **Responsive Design:** Adapts to various screen sizes (further testing/refinement might be needed, particularly for mobile).
 
-## 📸 Screenshot
+## Screenshot
       
 [![Portfolio Site Screenshot](https://github.com/ansidian/dev-portfolio/releases/download/assets/portfolio-site.gif)](#)
 
-## 🛠️ Technologies Used
+## Tech Stack
 
 * **Frontend:**
     * HTML5 (Semantic markup)
@@ -38,7 +37,7 @@ Web Developer.
 * **Development/Tooling:**
     * Git & GitHub
 
-## 🔧 Code Highlights (Canvas Animation - `js/app.js`)
+## Feature Highlights (Canvas Animation - `js/app.js`)
 
 * **Particle Class:** Defines the properties (position, velocity, size, color type) and state for each particle.
 * **Canvas Setup & Resize:** Handles canvas dimension adjustments and recalculates parameters on window resize.
@@ -49,16 +48,13 @@ Web Developer.
 * **Animation Loop (`animationLoop`):** Uses `requestAnimationFrame` for smooth, efficient updates and rendering.
 * **Theme Integration:** Reads CSS custom properties (`getCssVariable`) to dynamically style particles and lines according to the current theme.
 
-## 🔮 Future Improvements / TODO
+## TODO
 
-*   [ ] Populate the "About Me" section with relevant content.
-*   [ ] Add more projects to the showcase.
+*   [x] Populate the "About Me" section with relevant content.
 *   [x] Implement the "Live Demo" link for the Dolphins Swim Academy project.
 *   [ ] Optimize canvas performance if issues arise on lower-end devices.
 
 ## 📫 Contact
-
-Andy Su
 
 * **GitHub:** [@ansidian](https://github.com/ansidian)
 * **LinkedIn:** [linkedin.com/in/andysu96](https://www.linkedin.com/in/andysu96/)
