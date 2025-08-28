@@ -54,7 +54,7 @@ Web Developer.
 *   [x] Implement the "Live Demo" link for the Dolphins Swim Academy project.
 *   [ ] Optimize canvas performance if issues arise on lower-end devices.
 
-## 📫 Contact
+## Contact
 
 * **GitHub:** [@ansidian](https://github.com/ansidian)
 * **LinkedIn:** [linkedin.com/in/andysu96](https://www.linkedin.com/in/andysu96/)
